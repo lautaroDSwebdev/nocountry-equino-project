@@ -6,7 +6,7 @@ import { Data } from '@/types/types';
 
 // Generic mutation types
 
-// hola esto es un cambio
+// hola esto es un cambio en dev
 
 // Global function that returns all REST mutation hooks
 export const RestMutations = () => {
