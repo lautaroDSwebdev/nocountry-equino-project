@@ -1,0 +1,80 @@
+'use client';
+
+import { useMutation, useQueryClient, UseMutationOptions, useQuery } from '@tanstack/react-query';
+import { deleteRequest, getRequest, postRequest, putRequest } from '../use-cases/api-use-cases';
+import { Data } from '@/types/types';
+
+// Generic mutation types
+
+
+
+
+// Global function that returns all REST mutation hooks
+export const RestMutations = () => {
+    const queryClient = useQueryClient();
+
+    const GetQueryRecordatorio = useQuery({
+        queryKey: ["key_"],
+        queryFn: () => {
+            return getRequest();
+        },
+    });
+    // POST Mutation
+    const usePostMutation = ({ data }: Data) => {
+
+        return useMutation({
+            mutationFn: async ({ data }: { data: Data }) => {
+                return postRequest(data);
+            },
+            onSuccess: () => {
+                queryClient.invalidateQueries({
+                    queryKey: ["key_"],
+                });
+                console.log("exitoso");
+                alert("registro de recordatorio exitoso");
+            }
+        });
+    };
+
+    // PUT Mutation
+    const usePutMutation = ({data, id}) => {
+
+        return useMutation({
+            mutationFn: async ({ data, id }: Data) => {
+                return putRequest({data, id});
+            },
+            onSuccess: () => {
+                queryClient.invalidateQueries({
+                    queryKey: ["key_recordatorio"],
+                });
+                console.log("exitoso");
+                alert("registro de recordatorio exitoso");
+            }
+        });
+    };
+
+
+    // DELETE Mutation
+    const useDeleteMutation = ( id: string ) => {
+
+        return useMutation({
+            mutationFn: async ( id : string) => {
+                return deleteRequest(id);
+            },
+            onSuccess: () => {
+                queryClient.invalidateQueries({
+                    queryKey: ["key_recordatorio"],
+                });
+                console.log("exitoso");
+                alert("registro de recordatorio exitoso");
+            }
+        });
+    };
+
+    return {
+        usePostMutation,
+        usePutMutation,
+        useDeleteMutation,
+        GetQueryRecordatorio
+    };
+};
