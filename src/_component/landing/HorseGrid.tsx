@@ -54,7 +54,7 @@ export default function HorseGrid({ title }: { title: string }) {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
                     {horses.map((horse) => (
-                        <div key={horse.id} className="bg-white rounded-md shadow-sm hover:shadow-lg transition-shadow duration-300 border border-gray-100 cursor-pointer overflow-hidden flex flex-col">
+                        <div key={horse.id} className="bg-white rounded-md shadow-sm hover:shadow-[0_4px_15px_rgba(201,162,77,0.5)] transition-shadow duration-300 border border-gray-100 cursor-pointer overflow-hidden flex flex-col">
                             <div className="relative h-56 w-full border-b border-gray-100">
                                 <img
                                     src={horse.image}

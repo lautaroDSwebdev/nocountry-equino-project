@@ -16,14 +16,14 @@ export default function Categories() {
                 <div className="flex flex-wrap justify-between md:justify-center gap-6 md:gap-12 py-6">
                     {categories.map((cat, idx) => (
                         <div key={idx} className="flex flex-col items-center gap-3 group cursor-pointer">
-                            <div className="w-16 h-16 bg-white rounded-full shadow-sm flex items-center justify-center text-[#9E7C32] group-hover:bg group-hover:text-white transition-all duration-300 border border-gray-200">
+                            <div className="w-16 h-16 bg-white rounded-full shadow-sm flex items-center justify-center text-[#5A2E14] group-hover:bg-[#5A2E14] group-hover:text-white transition-all duration-300 border border-gray-200">
                                 <cat.icon size={28} strokeWidth={1.5} />
                             </div>
-                            <span className="text-xs md:text-sm text-gray-500 group-hover:text-blue-600 transition-colors font-light">{cat.name}</span>
+                            <span className="text-xs md:text-sm text-gray-500 group-hover:text-[#5A2E14] transition-colors font-light">{cat.name}</span>
                         </div>
                     ))}
                 </div>
             </div>
-        </div>
+        </div >
     );
 }

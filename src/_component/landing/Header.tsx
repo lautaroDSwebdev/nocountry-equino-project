@@ -1,13 +1,19 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { Search, ShoppingCart, Menu, User } from 'lucide-react';
 
 export default function Header() {
     return (
         <header className="bg-[#1F140D] border-b border-gray-200">
-            <div className="container mx-auto px-4 py-3">
+            <div className="w-full px-6 py-3">
                 <div className="flex items-center justify-between gap-4">
                     {/* Logo */}
-                    <Link href="/" className="flex-shrink-0">
+                    <Link href="/" className="flex-shrink-0 flex items-center gap-2">
+                        <img
+                            src="/images/LOGO.png"
+                            alt="EquiHorse Logo"
+                            className="h-20 w-auto object-contain"
+                        />
                         <span className="text-2xl font-bold text-fff-900 tracking-tight">
                             EQUI<span className="font-light">HORSE</span>
                         </span>
@@ -34,21 +40,21 @@ export default function Header() {
 
                     {/* promo/links - Desktop */}
                     <div className="hidden md:block">
-                        <nav className="flex items-center gap-6 text-sm text-fff-700/90 font-light">
-                            <Link href="#" className="hover:text-gray-900">Categorías</Link>
-                            <Link href="#" className="hover:text-gray-900">Ofertas</Link>
-                            <Link href="#" className="hover:text-gray-900">Historial</Link>
-                            <Link href="#" className="hover:text-gray-900">Vender</Link>
-                            <Link href="#" className="hover:text-gray-900">Ayuda</Link>
+                        <nav className="flex items-center gap-6 text-sm text-white font-light">
+                            <Link href="#" className="hover:text-[#C9A24D] transition-colors">Categorías</Link>
+                            <Link href="#" className="hover:text-[#C9A24D] transition-colors">Ofertas</Link>
+                            <Link href="#" className="hover:text-[#C9A24D] transition-colors">Historial</Link>
+                            <Link href="#" className="hover:text-[#C9A24D] transition-colors">Vender</Link>
+                            <Link href="#" className="hover:text-[#C9A24D] transition-colors">Ayuda</Link>
                         </nav>
                     </div>
 
                     {/* User Actions */}
-                    <div className="hidden md:flex items-center gap-4 text-sm text-fff-800">
-                        <Link href="#" className="font-medium hover:text-blue-600">Crea tu cuenta</Link>
-                        <Link href="#" className="font-medium hover:text-blue-600">Ingresa</Link>
-                        <Link href="#" className="font-medium hover:text-blue-600">Mis compras</Link>
-                        <Link href="#" className="hover:text-gray-900 text-gray-700"><ShoppingCart size={20} strokeWidth={1.5} /></Link>
+                    <div className="hidden md:flex items-center gap-4 text-sm text-white">
+                        <Link href="#" className="font-medium hover:text-[#C9A24D] transition-colors">Crea tu cuenta</Link>
+                        <Link href="#" className="font-medium hover:text-[#C9A24D] transition-colors">Ingresa</Link>
+                        <Link href="#" className="font-medium hover:text-[#C9A24D] transition-colors">Mis compras</Link>
+                        <Link href="#" className="hover:text-[#C9A24D] text-white transition-colors"><ShoppingCart size={20} strokeWidth={1.5} /></Link>
                     </div>
                 </div>
 
