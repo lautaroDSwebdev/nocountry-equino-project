@@ -19,10 +19,10 @@ export const RestMutations = () => {
         },
     });
     // POST Mutation
-    const usePostMutation = ({ data }: Data) => {
+    const usePostMutation = () => {
 
         return useMutation({
-            mutationFn: async ({ data }: { data: Data }) => {
+            mutationFn: async ({ data }: Data) => {
                 return postRequest(data);
             },
             onSuccess: () => {
@@ -36,11 +36,14 @@ export const RestMutations = () => {
     };
 
     // PUT Mutation
-    const usePutMutation = ({data, id}) => {
+    const usePutMutation = () => {
 
         return useMutation({
             mutationFn: async ({ data, id }: Data) => {
-                return putRequest({data, id});
+                if (!id) {
+                    throw new Error('ID is required for PUT request');
+                }
+                return putRequest(id, data);
             },
             onSuccess: () => {
                 queryClient.invalidateQueries({
@@ -54,10 +57,10 @@ export const RestMutations = () => {
 
 
     // DELETE Mutation
-    const useDeleteMutation = ( id: string ) => {
+    const useDeleteMutation = (id: string) => {
 
         return useMutation({
-            mutationFn: async ( id : string) => {
+            mutationFn: async (id: string) => {
                 return deleteRequest(id);
             },
             onSuccess: () => {
