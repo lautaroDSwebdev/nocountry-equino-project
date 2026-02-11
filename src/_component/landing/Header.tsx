@@ -15,7 +15,7 @@ export default function Header() {
                             className="h-20 w-auto object-contain"
                         />
                         <span className="text-2xl font-bold text-fff-900 tracking-tight">
-                            EQUI<span className="font-light">HORSE</span>
+                            HORSE<span className="font-light">TRUST</span>
                         </span>
                     </Link>
 
@@ -41,6 +41,7 @@ export default function Header() {
                     {/* promo/links - Desktop */}
                     <div className="hidden md:block">
                         <nav className="flex items-center gap-6 text-sm text-white font-light">
+                            <Link href="#" className="hover:text-[#C9A24D] transition-colors">¿Quiénes Somos?</Link>
                             <Link href="#" className="hover:text-[#C9A24D] transition-colors">Categorías</Link>
                             <Link href="#" className="hover:text-[#C9A24D] transition-colors">Ofertas</Link>
                             <Link href="#" className="hover:text-[#C9A24D] transition-colors">Historial</Link>
