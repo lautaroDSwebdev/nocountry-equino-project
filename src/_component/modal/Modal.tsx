@@ -1,22 +1,9 @@
 import React from 'react';
 
 interface ModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-  children?: React.ReactNode;
+
 }
 
-export default function Modal({ isOpen, onClose, children }: ModalProps) {
-  if (!isOpen) return null;
+export default function Modal({}: ModalProps) {
 
-  return (
-    <div>
-      <div>
-        <button onClick={onClose}>Close</button>
-      </div>
-      <div>
-        {children}
-      </div>
-    </div>
-  );
 }
