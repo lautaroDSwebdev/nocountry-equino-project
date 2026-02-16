@@ -1,7 +1,16 @@
+"use client"
 import Link from 'next/link';
+
 import { Search, ShoppingCart, Menu, User } from 'lucide-react';
+import { usePathname } from 'next/navigation';
+import { data, options } from '@/mock/mock';
+import { useRouter } from 'next/router';
 
 export default function Header() {
+   
+    const path = usePathname()
+
+    // const router = useRouter()
     return (
         <header className="bg-[#1F140D] border-b border-gray-200">
             <div className="container mx-auto px-4 py-3">
@@ -35,19 +44,28 @@ export default function Header() {
                     {/* promo/links - Desktop */}
                     <div className="hidden md:block">
                         <nav className="flex items-center gap-6 text-sm text-fff-700/90 font-light">
-                            <Link href="#" className="hover:text-gray-900">Categorías</Link>
-                            <Link href="#" className="hover:text-gray-900">Ofertas</Link>
-                            <Link href="#" className="hover:text-gray-900">Historial</Link>
-                            <Link href="#" className="hover:text-gray-900">Vender</Link>
-                            <Link href="#" className="hover:text-gray-900">Ayuda</Link>
+
+                            {
+                                data.map(item => (
+                                    <Link key={item.label} href={item.href} className="hover:text-gray-900">
+                                        {item.label}
+                                    </Link>
+
+                                ))
+                            }
+
                         </nav>
                     </div>
 
                     {/* User Actions */}
                     <div className="hidden md:flex items-center gap-4 text-sm text-fff-800">
-                        <Link href="#" className="font-medium hover:text-blue-600">Crea tu cuenta</Link>
-                        <Link href="#" className="font-medium hover:text-blue-600">Ingresa</Link>
-                        <Link href="#" className="font-medium hover:text-blue-600">Mis compras</Link>
+                        {
+                            options.map(e => (
+                                <Link href={e.href} className="font-medium hover:text-blue-600">{e.label}</Link>
+
+                            ))
+                        }
+                        
                         <Link href="#" className="hover:text-gray-900 text-gray-700"><ShoppingCart size={20} strokeWidth={1.5} /></Link>
                     </div>
                 </div>

@@ -1,4 +1,20 @@
 {
-  "users": [],
-  "posts": []
+  "users": [
+    {
+      "firstName": "Lautaro ",
+      "secondSurname": "Di Salvo",
+      "email": "vkmdfvkmdf@gmail.com",
+      "password": "vdvdfvfd4544",
+      "secondPassword": "vdvdfvfd4544",
+      "id": 1
+    },
+    {
+      "firstName": "Lautaro ",
+      "secondSurname": "Di Salvo",
+      "email": "vkmdfvkmdf@gmail.com",
+      "password": "vdvdfvfd4544",
+      "secondPassword": "vdvdfvfd4544",
+      "id": 2
+    }
+  ]
 }
