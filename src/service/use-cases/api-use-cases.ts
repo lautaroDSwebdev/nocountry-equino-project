@@ -9,13 +9,13 @@ export const getRequest = async <T>(): Promise<T> => {
 };
 
 // POST request
-export const postRequest = async ( data) => {
+export const postRequest = async (data: string) => {
     const response = await api.post(endpoint, data);
     return response.data;
 };
 
 // PUT request
-export const putRequest = async (id: string, data: void) => {
+export const putRequest = async (id: number, data: string) => {
     const response = await api.put(`${endpoint}/${id}`, data);
     return response.data;
 };

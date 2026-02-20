@@ -16,7 +16,10 @@
     "next": "16.1.6",
     "react": "19.2.3",
     "react-dom": "19.2.3",
-    "react-hot-toast": "^2.6.0"
+    "react-hot-toast": "^2.6.0",
+    "@stomp/stompjs": "^7.3.0",
+    "lucide-react": "^0.563.0",
+    "sockjs-client": "^1.6.1"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
@@ -24,6 +27,7 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "autoprefixer": "^10.4.24",
+    "@types/sockjs-client": "^1.5.4",
     "babel-plugin-react-compiler": "1.0.0",
     "json-server": "^0.17.4",
     "postcss": "^8.5.6",

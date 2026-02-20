@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 import Image from 'next/image';
-import imagen from "../../assets/imagenLogin.png"
-import simbolo from "../../assets/image.png"
-import Logo from "../../assets/logo.png"
+import imagen from "../../assets/imagenLogin.png";
+import simbolo from "../../assets/image.png";
+import Logo from "../../assets/logo.png";
 
 interface FormsProps {
   children?: React.ReactNode;
