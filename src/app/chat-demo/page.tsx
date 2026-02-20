@@ -1,4 +1,4 @@
-import { ChatPanel } from '@/_component/chat/ChatPanel';
+import { ChatPanel } from '@/components/chat/ChatPanel';
 
 /**
  * Example page demonstrating the ChatPanel component

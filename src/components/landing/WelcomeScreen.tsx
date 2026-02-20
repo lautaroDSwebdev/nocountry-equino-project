@@ -1,5 +1,6 @@
 "use client";
 
+<<<<<<< HEAD:src/_component/landing/WelcomeScreen.tsx
 import { useEffect, useState } from "react";
 import Image from "next/image";
 
@@ -28,6 +29,13 @@ export default function WelcomeScreen({ onComplete }: { onComplete: () => void }
             className={`fixed inset-0 z-50 flex flex-col items-center justify-center bg-[#1F140D] transition-opacity duration-700 ease-in-out ${isVisible ? "opacity-100" : "opacity-0 pointer-events-none"
                 }`}
         >
+=======
+import Image from "next/image";
+
+export default function WelcomeScreen() {
+    return (
+        <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-[#1F140D]">
+>>>>>>> 5181c00487977be52996f124981f0c1025e702fa:src/components/landing/WelcomeScreen.tsx
             <div className="relative flex flex-col items-center animate-pulse">
                 <div className="relative w-40 h-40 mb-6">
                     <img

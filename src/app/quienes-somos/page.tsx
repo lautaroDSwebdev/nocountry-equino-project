@@ -6,7 +6,7 @@ import HeroAbout from "@/_component/about/HeroAbout";
 import MissionVision from "@/_component/about/MissionVision";
 import TeamGrid from "@/_component/about/TeamGrid";
 import Header from "@/_component/landing/Header";
-import Footer from "@/_component/landing/Footer";
+import Footer from "@/components/layout/Footer";
 
 export default function QuienesSomos() {
     return (

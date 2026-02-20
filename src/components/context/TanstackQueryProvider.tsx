@@ -5,7 +5,7 @@ interface ContextProviderProps {
   children: ReactNode;
 }
 
-export default function ContextProvider({ children }: ContextProviderProps) {
+export default function TanstackQueryProvider({ children }: ContextProviderProps) {
   const [queryClient] = useState(
     () =>
       new QueryClient({
