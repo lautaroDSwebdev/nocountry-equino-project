@@ -15,7 +15,7 @@ const navLinksLeft = [
 const navLinksRight = [
     { href: "/quienes-somos", label: "Quiénes Somos" },
     { href: "/ayuda", label: "Ayuda" },
-    { href: "/contacto", label: "Contacto" },
+    { href: "/LocationSection", label: "Contacto" },
 ];
 
 const categorias = [
@@ -191,14 +191,14 @@ export default function Header() {
             </div>
 
     
-            <div className="hidden md:block border-t border-white/10">
+            <div className="hidden md:block border-t border-white/10 ">
                 <div className="w-full px-6">
                     <nav className="flex items-center justify-between">
                         <div className="flex items-center gap-1">
                             {navLinksLeft.map(renderNavLink)}
                         </div>
 
-                        <div className="flex items-center gap-1">
+                        <div className="flex items-center gap-1 ">
                             {navLinksRight.map(renderNavLink)}
                         </div>
                     </nav>
