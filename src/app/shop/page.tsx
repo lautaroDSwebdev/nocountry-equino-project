@@ -8,17 +8,15 @@ import Header from "@/components/layout/Header";
 const page = () => {
   return (
     <div className="min-h-screen bg-[#F4F1EC] font-sans">
-      <Header />
       <Hero />
       <main>
         <Categories />
-        <Filter/>
+        <Filter />
         <div className="space-y-4">
           <HorseGrid title="Basado en tu última visita" />
-         
+
         </div>
       </main>
-      <Footer />
     </div>
   );
 };

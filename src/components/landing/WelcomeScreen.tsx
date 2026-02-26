@@ -31,12 +31,12 @@ export default function WelcomeScreen({ onComplete }: { onComplete: () => void }
                 <div className="relative w-40 h-40 mb-6">
                     <img
                         src="/images/LOGO.png"
-                        alt="EquiHorse Logo"
+                        alt="HorseTrust Logo"
                         className="w-full h-full object-contain"
                     />
                 </div>
                 <h1 className="text-4xl md:text-6xl font-bold text-white tracking-widest mb-2">
-                    EQUI<span className="font-light text-[#C9A24D]">HORSE</span>
+                    HORSE<span className="font-light text-[#C9A24D]">TRUST</span>
                 </h1>
                 <p className="text-[#C9A24D] text-lg md:text-xl font-light tracking-wide uppercase mt-4 border-t border-[#C9A24D]/30 pt-4">
                     La excelencia en cada galope

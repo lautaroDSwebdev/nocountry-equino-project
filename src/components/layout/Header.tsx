@@ -140,7 +140,7 @@ export default function Header() {
                                         <span>Chat</span>
                                     </button>
                                     <Link
-                                        href="/guardados"
+                                        href="/equino/guardados"
                                         onClick={() => setIsProfileOpen(false)}
                                         className="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 hover:text-[#C9A24D] transition-colors"
                                     >

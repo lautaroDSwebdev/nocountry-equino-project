@@ -20,13 +20,9 @@ export default function EquinoLayout({
             {showWelcome && <WelcomeScreen onComplete={() => setShowWelcome(false)} />}
 
             <div className={`transition-opacity duration-1000 ${showWelcome ? 'opacity-0 h-0 overflow-hidden' : 'opacity-100'}`}>
-                <Header />
-                
-                
                 <main>
                     {children}
                 </main>
-                <Footer />
             </div>
         </div>
     );

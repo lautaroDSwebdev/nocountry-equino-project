@@ -16,7 +16,8 @@ export const HORSES = [
         height: '1.65m',
         color: 'Zaino',
         description: 'Excelente potrillo Pura Sangre con gran futuro en las pistas. Hijo de ganadores clásicos, muestra excelente conformación y temperamento competitivo. Ideal para continuar su entrenamiento y competir al más alto nivel.',
-        vendor: { id: 'v1', name: 'Haras La Pasión' }
+        vendor: { id: 'v1', name: 'Haras La Pasión' },
+        isVerified: true
     },
     {
         id: 2,
@@ -35,7 +36,8 @@ export const HORSES = [
         height: '1.45m',
         color: 'Gateado',
         description: 'Caballo criollo puro registrado, manso garantizado para cualquier jinete. Ha participado en exposiciones y cabalgatas largas. Excelente estado sanitario y aplomos.',
-        vendor: { id: 'v2', name: 'Cabaña El Chingolo' }
+        vendor: { id: 'v2', name: 'Cabaña El Chingolo' },
+        isVerified: true
     },
     {
         id: 3,
@@ -54,7 +56,8 @@ export const HORSES = [
         height: '1.53m',
         color: 'Alazán',
         description: 'Yegua jugando actualmente torneos de mediano hándicap. Muy dócil, con gran explosión y boca suave. Ha jugado las últimas 3 temporadas sin lesiones.',
-        vendor: { id: 'v3', name: 'Polo Club Santa Fe' }
+        vendor: { id: 'v3', name: 'Polo Club Santa Fe' },
+        isVerified: false
     },
     {
         id: 4,
@@ -73,7 +76,8 @@ export const HORSES = [
         height: '1.30m',
         color: 'Rosillo',
         description: 'Potrillo recién destetado con excelente genética de trabajo. Líneas de Rienda y Trabajo con Hacienda. Cabestro hecho, muy manso de abajo.',
-        vendor: { id: 'v4', name: 'Rancho Las Marías' }
+        vendor: { id: 'v4', name: 'Rancho Las Marías' },
+        isVerified: true
     },
     {
         id: 5,
@@ -92,7 +96,8 @@ export const HORSES = [
         height: '1.68m',
         color: 'Tordillo',
         description: 'Caballo Silla Argentino x Pura Sangre iniciado en salto (saltando 1.00m-1.10m en casa). Muy buena técnica y voluntad. Listo para empezar a concursar.',
-        vendor: { id: 'v5', name: 'Centro Ecuestre Los Andes' }
+        vendor: { id: 'v5', name: 'Centro Ecuestre Los Andes' },
+        isVerified: false
     },
     {
         id: 6,
@@ -111,7 +116,8 @@ export const HORSES = [
         height: '1.52m',
         color: 'Tordillo',
         description: 'Padrillo Árabe de líneas puras egipcias. Ha ganado múltiples campeonatos de morfología y movimientos en su categoría. Excelente carácter.',
-        vendor: { id: 'v6', name: 'Haras El Oasis' }
+        vendor: { id: 'v6', name: 'Haras El Oasis' },
+        isVerified: true
     },
     {
         id: 7,
@@ -130,7 +136,8 @@ export const HORSES = [
         height: '1.55m',
         color: 'Nevado',
         description: 'Caballo maestro, totalmente manso e ideal para niños o principiantes. No se asusta de nada, acostumbrado a tránsito, perros y ruidos.',
-        vendor: { id: 'v7', name: 'Estrellita Equitación' }
+        vendor: { id: 'v7', name: 'Estrellita Equitación' },
+        isVerified: false
     },
     {
         id: 8,
@@ -149,7 +156,8 @@ export const HORSES = [
         height: '1.68m',
         color: 'Negro',
         description: 'Semental Frisón con todos los papeles internacionales al día. Movimientos espectaculares, crines y cola muy abundantes. Entrenado en Alta Escuela básica.',
-        vendor: { id: 'v8', name: 'Importadora Equina Litoral' }
+        vendor: { id: 'v8', name: 'Importadora Equina Litoral' },
+        isVerified: true
     },
     {
         id: 9,
@@ -168,6 +176,7 @@ export const HORSES = [
         height: '1.62m',
         color: 'Bayo',
         description: 'Caballo Lusitano espectacular entrenado y concursando en nivel San Jorge de Adiestramiento. Realiza piruetas, apoyos, trote largo, passage y piaffe iniciados.',
-        vendor: { id: 'v9', name: 'Dressage San Luis' }
+        vendor: { id: 'v9', name: 'Dressage San Luis' },
+        isVerified: true
     },
 ];

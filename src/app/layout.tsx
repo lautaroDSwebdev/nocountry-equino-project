@@ -17,7 +17,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "EquiHorse",
+  title: "HorseTrust",
   description: "Buscar caballos, razas y más...",
   icons: {
     icon: "logo-equino.ico",
@@ -36,9 +36,11 @@ export default function RootLayout({
       >
         <UseContextProvider>
           <div className="flex flex-col min-h-screen">
+            <Header />
             <main className="flex-grow">
               {children}
             </main>
+            <Footer />
             <ChatWidget />
           </div>
         </UseContextProvider>
