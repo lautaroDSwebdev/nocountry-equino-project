@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { HORSES } from "@/data/mockHorses";
+import { HORSES } from "@/mock/mockHorses";
 import Link from "next/link";
 import {
   ChevronLeft,

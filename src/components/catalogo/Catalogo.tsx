@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { Filter, Grid, List as ListIcon, ChevronDown, Search } from 'lucide-react';
 import Link from 'next/link';
-import { HORSES } from '@/data/mockHorses';
+import { HORSES } from '@/mock/mockHorses';
 
 const FILTERS = [
     { title: "Razas", items: ["Pura Sangre", "Cuarto de Milla", "Árabe", "Criollo", "Frisón"] },

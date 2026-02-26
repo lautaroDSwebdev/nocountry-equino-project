@@ -1,7 +1,7 @@
 "use client";
 
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { useState, useEffect, useRef } from 'react';
 import { Search, Menu, User, Settings, MessageSquare, Heart } from 'lucide-react';
 import { useChatStore } from '@/store/useChatStore';
@@ -22,6 +22,7 @@ const navLinksRight = [
 
 
 export default function Header() {
+    const router = useRouter()
     const pathname = usePathname();
     const [isScrolled, setIsScrolled] = useState(false);
     const [isProfileOpen, setIsProfileOpen] = useState(false);
@@ -46,7 +47,6 @@ export default function Header() {
         window.addEventListener('scroll', handleScroll, { passive: true });
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
-
 
 
     const renderNavLink = (link: { href: string; label: string }) => {
@@ -150,10 +150,7 @@ export default function Header() {
                                     <div className="border-t border-gray-100 mt-2 pt-2">
                                         <button
                                             className="w-full text-left px-4 py-2.5 text-sm text-red-600 hover:bg-red-50 transition-colors"
-                                            onClick={() => {
-                                                setIsProfileOpen(false);
-                                                // Handle logout logic here
-                                            }}
+                                            onClick={() => router.push("/login")}
                                         >
                                             Cerrar sesión
                                         </button>
