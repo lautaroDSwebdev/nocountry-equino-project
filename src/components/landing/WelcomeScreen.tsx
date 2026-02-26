@@ -1,10 +1,32 @@
 "use client";
 
-import Image from "next/image";
+import { useEffect, useState } from "react";
 
-export default function WelcomeScreen() {
+export default function WelcomeScreen({ onComplete }: { onComplete: () => void }) {
+    const [isVisible, setIsVisible] = useState(true);
+
+    useEffect(() => {
+        // Start fade out after 2.5 seconds
+        const timer = setTimeout(() => {
+            setIsVisible(false);
+        }, 1000);
+
+        // Notify parent that animation is done after fade out transition (e.g. 500ms)
+        const cleanup = setTimeout(() => {
+            onComplete();
+        }, 800);
+
+        return () => {
+            clearTimeout(timer);
+            clearTimeout(cleanup);
+        };
+    }, [onComplete]);
+
     return (
-        <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-[#1F140D]">
+        <div
+            className={`fixed inset-0 z-50 flex flex-col items-center justify-center bg-[#1F140D] transition-opacity duration-700 ease-in-out ${isVisible ? "opacity-100" : "opacity-0 pointer-events-none"
+                }`}
+        >
             <div className="relative flex flex-col items-center animate-pulse">
                 <div className="relative w-40 h-40 mb-6">
                     <img

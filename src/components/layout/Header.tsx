@@ -1,37 +1,44 @@
 "use client";
 
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { useState, useEffect, useRef } from 'react';
-import { Search, ShoppingCart, Menu, ChevronDown } from 'lucide-react';
+import { Search, Menu, User, Settings, MessageSquare, Heart } from 'lucide-react';
+import { useChatStore } from '@/store/useChatStore';
 
+const path = "/equino"
 const navLinksLeft = [
-    { href: "/categorias", label: "Categorías", hasDropdown: true },
-    { href: "/ofertas", label: "Ofertas" },
-    { href: "/novedades", label: "Novedades" },
-    { href: "/vender", label: "Vender" },
+    { href: path + "/catalogo", label: "Catálogo" },
+    { href: path + "/novedades", label: "Novedades" },
+    { href: path + "/vender", label: "Vender" },
 ];
 
 const navLinksRight = [
-    { href: "/quienes-somos", label: "Quiénes Somos" },
-    { href: "/ayuda", label: "Ayuda" },
-    { href: "/contacto", label: "Contacto" },
+    { href: path + "/quienes-somos", label: "Quiénes Somos" },
+    { href: path + "/ayuda", label: "Ayuda" },
+    { href: path + "/contacto", label: "Contacto" },
 ];
 
-const categorias = [
-    { title: "Razas", items: ["Pura Sangre", "Cuarto de Milla", "Árabe", "Criollo", "Frisón"] },
-    { title: "Disciplinas", items: ["Salto", "Doma", "Polo", "Endurance", "Carreras"] },
-    { title: "Edades", items: ["Potro (0-2)", "Joven (2-5)", "Adulto (5-15)", "Senior (15+)"] },
-    { title: "Rango de Precio", items: ["Hasta $500.000", "$500k - $2M", "$2M - $5M", "Más de $5M"] },
-];
+
 
 export default function Header() {
+    const router = useRouter()
     const pathname = usePathname();
     const [isScrolled, setIsScrolled] = useState(false);
-    const [showCategorias, setShowCategorias] = useState(false);
-    const dropdownRef = useRef<HTMLDivElement>(null);
+    const [isProfileOpen, setIsProfileOpen] = useState(false);
+    const { currentUsername, toggleChat } = useChatStore();
+    const profileRef = useRef<HTMLDivElement>(null);
 
-    const cartCount = 3;
+    // Cerrar el dropdown al hacer clic fuera
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (profileRef.current && !profileRef.current.contains(event.target as Node)) {
+                setIsProfileOpen(false);
+            }
+        };
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => document.removeEventListener('mousedown', handleClickOutside);
+    }, []);
 
     useEffect(() => {
         const handleScroll = () => {
@@ -41,65 +48,9 @@ export default function Header() {
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
-    useEffect(() => {
-        const handleClickOutside = (e: MouseEvent) => {
-            if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
-                setShowCategorias(false);
-            }
-        };
-        if (showCategorias) {
-            document.addEventListener('mousedown', handleClickOutside);
-        }
-        return () => document.removeEventListener('mousedown', handleClickOutside);
-    }, [showCategorias]);
 
-    const renderNavLink = (link: { href: string; label: string; hasDropdown?: boolean }) => {
+    const renderNavLink = (link: { href: string; label: string }) => {
         const isActive = pathname === link.href;
-
-        if (link.hasDropdown) {
-            return (
-                <div key={link.href} className="relative" ref={dropdownRef}>
-                    <button
-                        onClick={() => setShowCategorias(!showCategorias)}
-                        className={`flex items-center gap-1 px-4 py-3 text-sm transition-all duration-200 border-b-2 ${isActive || showCategorias
-                            ? 'text-[#C9A24D] font-semibold border-[#C9A24D]'
-                            : 'text-gray-300 border-transparent hover:text-white hover:border-white/30'
-                            }`}
-                    >
-                        {link.label}
-                        <ChevronDown
-                            size={14}
-                            className={`transition-transform duration-200 ${showCategorias ? 'rotate-180' : ''}`}
-                        />
-                    </button>
-
-                    {showCategorias && (
-                        <div className="absolute top-full left-0 mt-0 w-[600px] bg-white rounded-b-2xl shadow-2xl border border-gray-100 p-6 grid grid-cols-4 gap-6 z-50">
-                            {categorias.map((cat) => (
-                                <div key={cat.title}>
-                                    <h4 className="font-bold text-[#1F140D] text-sm mb-3 pb-2 border-b border-gray-100">
-                                        {cat.title}
-                                    </h4>
-                                    <ul className="space-y-2">
-                                        {cat.items.map((item) => (
-                                            <li key={item}>
-                                                <Link
-                                                    href="#"
-                                                    className="text-sm text-gray-600 hover:text-[#C9A24D] transition-colors"
-                                                    onClick={() => setShowCategorias(false)}
-                                                >
-                                                    {item}
-                                                </Link>
-                                            </li>
-                                        ))}
-                                    </ul>
-                                </div>
-                            ))}
-                        </div>
-                    )}
-                </div>
-            );
-        }
 
         return (
             <Link
@@ -123,30 +74,18 @@ export default function Header() {
             <div className="w-full px-6 py-3">
                 <div className="flex items-center justify-between gap-4">
                     {/* Logo */}
-                    <Link href="/" className="flex-shrink-0 flex items-center gap-2">
+                    <Link href="/equino" className="flex-shrink-0 flex items-center gap-2 transition-transform hover:scale-[1.02] duration-300">
                         <img
                             src="/images/LOGO.png"
                             alt="HorseTrust Logo"
-                            className="h-16 w-auto object-contain"
+                            className="h-14 md:h-16 w-auto object-contain drop-shadow-[0_0_15px_rgba(201,162,77,0.3)]"
                         />
-                        <span className="text-2xl font-bold text-white tracking-tight">
-                            HORSE<span className="font-light">TRUST</span>
+                        <span className="text-2xl md:text-3xl font-bold text-white tracking-tight drop-shadow-md">
+                            HORSE<span className="font-light text-[#C9A24D]">TRUST</span>
                         </span>
                     </Link>
 
-                    {/* Barra de búsqueda - Desktop */}
-                    <div className="hidden md:flex flex-1 max-w-2xl mx-6">
-                        <div className="relative w-full">
-                            <input
-                                type="text"
-                                placeholder="Buscar caballos, razas y más..."
-                                className="w-full h-10 px-4 pr-10 rounded-lg border border-gray-600 focus:outline-none focus:ring-2 focus:ring-[#C9A24D]/50 focus:border-[#C9A24D] text-gray-700 placeholder-gray-400 bg-white transition-all duration-300"
-                            />
-                            <button className="absolute right-0 top-0 h-10 w-10 flex items-center justify-center text-gray-500 hover:text-[#C9A24D] transition-colors">
-                                <Search size={20} />
-                            </button>
-                        </div>
-                    </div>
+
 
                     {/* Botón hamburguesa - Mobile */}
                     <button className="md:hidden p-2 text-white">
@@ -155,25 +94,70 @@ export default function Header() {
 
                     {/* Acciones de usuario - Desktop */}
                     <div className="hidden md:flex items-center gap-5 text-sm text-white">
-                        <Link href="#" className="hover:text-[#C9A24D] transition-colors">
+                        <Link href="/register" className="hover:text-[#C9A24D] transition-colors">
                             Crea tu cuenta
                         </Link>
-                        <Link href="#" className="font-semibold hover:text-[#C9A24D] transition-colors">
+                        <Link href="/login" className="font-semibold hover:text-[#C9A24D] transition-colors">
                             Ingresá
                         </Link>
-                        <Link href="#" className="hover:text-[#C9A24D] transition-colors">
-                            Mis compras
-                        </Link>
 
-                        {/* Carrito con badge */}
-                        <Link href="#" className="relative hover:text-[#C9A24D] transition-colors">
-                            <ShoppingCart size={22} strokeWidth={1.5} />
-                            {cartCount > 0 && (
-                                <span className="absolute -top-2 -right-2.5 bg-[#C9A24D] text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center">
-                                    {cartCount}
+                        {/* Contenedor del Perfil de Usuario con Dropdown */}
+                        <div className="relative" ref={profileRef}>
+                            <button
+                                onClick={() => setIsProfileOpen(!isProfileOpen)}
+                                className="flex items-center gap-2 hover:text-[#C9A24D] transition-colors group p-2"
+                            >
+                                <div className="bg-white/10 p-2 rounded-full group-hover:bg-[#C9A24D] group-hover:text-white transition-all duration-300">
+                                    <User size={20} strokeWidth={2} />
+                                </div>
+                                <span className="font-medium group-hover:text-[#C9A24D] transition-colors hidden lg:block">
+                                    {currentUsername || "User"}
                                 </span>
+                            </button>
+
+                            {/* Dropdown Menu */}
+                            {isProfileOpen && (
+                                <div className="absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-xl border border-gray-100 overflow-hidden py-2 animate-in fade-in slide-in-from-top-2 duration-200">
+                                    <div className="px-4 py-2 border-b border-gray-100 mb-2 block lg:hidden">
+                                        <p className="text-sm font-semibold text-gray-800 truncate">{currentUsername || "User"}</p>
+                                    </div>
+                                    <Link
+                                        href="/perfil"
+                                        onClick={() => setIsProfileOpen(false)}
+                                        className="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 hover:text-[#C9A24D] transition-colors"
+                                    >
+                                        <Settings size={16} />
+                                        <span>Mi perfil</span>
+                                    </Link>
+                                    <button
+                                        onClick={() => {
+                                            setIsProfileOpen(false);
+                                            toggleChat();
+                                        }}
+                                        className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 hover:text-[#C9A24D] transition-colors text-left"
+                                    >
+                                        <MessageSquare size={16} />
+                                        <span>Chat</span>
+                                    </button>
+                                    <Link
+                                        href="/guardados"
+                                        onClick={() => setIsProfileOpen(false)}
+                                        className="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 hover:text-[#C9A24D] transition-colors"
+                                    >
+                                        <Heart size={16} />
+                                        <span>Guardado</span>
+                                    </Link>
+                                    <div className="border-t border-gray-100 mt-2 pt-2">
+                                        <button
+                                            className="w-full text-left px-4 py-2.5 text-sm text-red-600 hover:bg-red-50 transition-colors"
+                                            onClick={() => router.push("/login")}
+                                        >
+                                            Cerrar sesión
+                                        </button>
+                                    </div>
+                                </div>
                             )}
-                        </Link>
+                        </div>
                     </div>
                 </div>
 
@@ -191,14 +175,14 @@ export default function Header() {
             </div>
 
     
-            <div className="hidden md:block border-t border-white/10">
+            <div className="hidden md:block border-t border-white/10 ">
                 <div className="w-full px-6">
                     <nav className="flex items-center justify-between">
                         <div className="flex items-center gap-1">
                             {navLinksLeft.map(renderNavLink)}
                         </div>
 
-                        <div className="flex items-center gap-1">
+                        <div className="flex items-center gap-1 ">
                             {navLinksRight.map(renderNavLink)}
                         </div>
                     </nav>

@@ -1,7 +1,7 @@
 "use client";
 
 import { Target, Eye, ShieldCheck, HeartHandshake, Lightbulb, Users } from 'lucide-react';
-import { useScrollReveal } from '@/service/hooks/useScrollReveal';
+import  {useScrollReveal} from "@/hooks/useScrollReveal"
 
 const MissionVision = () => {
   const sectionRef = useScrollReveal<HTMLElement>();

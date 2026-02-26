@@ -71,7 +71,10 @@ export function useChat(
                     client.subscribe('/topic/public', (message: IMessage) => {
                         try {
                             const chatMessage: ChatMessage = JSON.parse(message.body);
-                            setMessages((prev) => [...prev, chatMessage]);
+                            // Only append the message if it belongs to the current horse context session
+                            if (chatMessage.horseId === horseId) {
+                                setMessages((prev) => [...prev, chatMessage]);
+                            }
                         } catch (err) {
                             console.error('Error parsing message:', err);
                         }
@@ -182,7 +185,7 @@ export function useChat(
             return;
         }
 
-        
+
 
         try {
             currentUsernameRef.current = trimmedUsername;

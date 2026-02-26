@@ -1,8 +1,8 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import { useChat } from '@/service/hooks/useChat';
 import { ChatMessage as ChatMessageType, MessageType } from '@/types/ChatMessage';
+import { useChat } from '@/service/service.hook/useChat';
 
 export interface ChatPanelProps {
     /** ID of the horse listing */

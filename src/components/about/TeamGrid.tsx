@@ -1,7 +1,7 @@
 "use client";
 
 import { Linkedin, Twitter, Mail } from 'lucide-react';
-import { useScrollReveal } from '@/service/hooks/useScrollReveal';
+import  {useScrollReveal} from "@/hooks/useScrollReveal"
 
 const TeamGrid = () => {
   const sectionRef = useScrollReveal<HTMLElement>();
@@ -44,8 +44,7 @@ const TeamGrid = () => {
           <div className="w-12 h-0.5 bg-[#C9A24D] mx-auto mb-6" />
           <h2 className="text-3xl md:text-4xl font-bold text-[#1F140D] mb-4">Nuestro Equipo</h2>
           <p className="text-gray-600 max-w-2xl mx-auto text-lg leading-relaxed">
-            Somos un equipo multidisciplinario unido por una pasión: hacer del mundo ecuestre
-            un espacio más seguro, profesional y accesible para todos.
+            Somos un equipo multidisciplinario unido por una pasión: hacer del mundo espacio más seguro, profesional y accesible para todos.
           </p>
         </div>
 
@@ -70,9 +69,33 @@ const TeamGrid = () => {
                 </p>
 
                 <div className="flex gap-4 pt-4 border-t border-gray-200">
-                  <button className="text-gray-400 hover:text-[#0077B5] transition-colors duration-300"><Linkedin size={18} /></button>
-                  <button className="text-gray-400 hover:text-[#1DA1F2] transition-colors duration-300"><Twitter size={18} /></button>
-                  <button className="text-gray-400 hover:text-gray-900 transition-colors duration-300"><Mail size={18} /></button>
+                  {/* LinkedIn */}
+                  <a
+                    href="https://www.linkedin.com/in/tu-usuario"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-gray-400 hover:text-[#0077B5] transition-colors duration-300"
+                  >
+                    <Linkedin size={18} />
+                  </a>
+
+                  {/* Twitter / X */}
+                  <a
+                    href="https://x.com/tu-usuario"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-gray-400 hover:text-[#1DA1F2] transition-colors duration-300"
+                  >
+                    <Twitter size={18} />
+                  </a>
+
+                  {/* Email */}
+                  <a
+                    href="mailto:tu-correo@ejemplo.com"
+                    className="text-gray-400 hover:text-gray-900 transition-colors duration-300"
+                  >
+                    <Mail size={18} />
+                  </a>
                 </div>
               </div>
             </div>

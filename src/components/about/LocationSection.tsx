@@ -1,8 +1,7 @@
 "use client";
 
 import { MapPin, Phone, Mail, Clock, ArrowRight } from 'lucide-react';
-import { useScrollReveal } from '@/service/hooks/useScrollReveal';
-
+import  {useScrollReveal} from "@/hooks/useScrollReveal"
 const LocationSection = () => {
   const sectionRef = useScrollReveal<HTMLElement>();
 
@@ -37,7 +36,7 @@ const LocationSection = () => {
                 {
                   icon: Mail,
                   title: "Email",
-                  detail: "contacto@horsetrust.com",
+                  detail: "contacto@horset.com",
                 },
                 {
                   icon: Clock,

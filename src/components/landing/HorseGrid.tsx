@@ -1,50 +1,14 @@
-import Image from 'next/image';
+"use client"
+import { horses } from '@/mock/mock';
+// import { DataComponentFilter } from '../filters/nav-filter';
+// import { HorsesEntity } from '@/types/types';
 
-export default function HorseGrid({ title }: { title: string }) {
+export default function HorseGrid() {
     // Placeholder data
-    const horses = [
-        {
-            id: 1,
-            name: 'Pura Sangre de Carrera - 3 Años',
-            price: 'USD 5,500',
-            image: "/images/prueba.jpg",
-            installments: 'en 12x USD 458',
-            shipping: 'Envío gratis'
-        },
-        {
-            id: 2,
-            name: 'Caballo Criollo - Manso de Andar',
-            price: 'ARS 2,800,000',
-            image: '/images/prueba.jpg',
-            installments: 'en 6x sin interés',
-            shipping: ''
-        },
-        {
-            id: 3,
-            name: 'Yegua Polo Argentino - Jugadora',
-            price: 'USD 12,000',
-            image: '/images/prueba.jpg',
-            installments: 'Plan Canje',
-            shipping: 'Envío gratis'
-        },
-        {
-            id: 4,
-            name: 'Potrillo Cuarto de Milla - Destete',
-            price: 'USD 3,200',
-            image: '/images/prueba.jpg',
-            installments: 'en 12x USD 266',
-            shipping: ''
-        },
-        {
-            id: 5,
-            name: 'Caballo de Salto - Iniciado',
-            price: 'USD 8,000',
-            image: '/images/prueba.jpg',
-            installments: 'en 12x USD 666',
-            shipping: 'Llega mañana'
-        },
-    ];
-
+   
+//  const horsesFilter: HorsesEntity[] = DataComponentFilter().filterHorse(horses)
+//  console.log(horsesFilter);
+ 
     return (
         <section className="bg-gray-100 py-8">
             <div className="container mx-auto px-4">

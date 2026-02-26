@@ -1,7 +1,7 @@
 'use client';
 
 import { useMutation, useQueryClient, UseMutationOptions, useQuery } from '@tanstack/react-query';
-import { deleteRequest, getRequest, postRequest, putRequest } from '../use-cases/api-use-cases';
+import { deleteRequest, getRequest, postRequest, putRequest } from '../use-cases/register-use-cases';
 import { Data } from '@/types/types';
 
 // Generic mutation types

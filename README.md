@@ -241,24 +241,60 @@ María                                    ← Nombre
 
 ```
 S02-26-Equipo-22-Web-App-Front/
-├── src/
-│   ├── app/
-│   │   ├── chat-demo/
-│   │   │   └── page.tsx              # Página de demo del chat
-│   │   └── page.tsx                  # Página principal
-│   ├── _component/
-│   │   └── chat/
-│   │       └── ChatPanel.tsx         # Componente del chat
-│   ├── service/
-│   │   └── hooks/
-│   │       └── useChat.ts            # Hook de WebSocket
-│   └── types/
-│       └── ChatMessage.ts            # Tipos TypeScript
-├── public/                           # Archivos estáticos
-├── package.json                      # Dependencias
-├── tsconfig.json                     # Configuración TypeScript
-└── tailwind.config.ts                # Configuración Tailwind
+.
+└── src/
+    ├── app/
+    ├── assets/
+    ├── types/
+    ├── store/
+    ├── hooks/
+    ├── mock/
+    ├── schemas/
+    ├── service/
+    │   ├── hooks/
+    │   ├── mutations/
+    │   ├── use-cases/
+    │   └── api-general.ts
+    └── components/
+        ├── about
+        ├── chat
+        ├── columns
+        ├── context/
+        ├── filter/
+        ├── forms/
+        ├── landing/
+        ├── layout/
+        ├── modal/
+        ├── tables/
+        └── ui/
 ```
+
+
+### Capas de la aplicacion
+
+### hooks
+ - Funciones que ayudan a ahorrar codigo con logica especifica
+### store
+ - Componentes que almacenan datos en memoria
+### context
+ - Componentes que envuelven toda la aplicacion en un conexto global
+### mock
+ - Constantes de array/objetos que usaremos en toda la app
+### service
+ - Conexiones con las apis
+### mutations
+ - Las conexiones con las querys de Tanstack y axios
+### use-cases
+ - Las meticiones http conectadas directamente con la ruta del servidor
+### schemas
+ - Las validaciones de formulario de la libreria zod
+### ui
+ - Componentes TSX Reutilizables
+### filter
+ - Configuraciones para filtros
+### modal
+ - Las ventanas modales para ver detalles, formularios, etc..
+
 
 ---
 

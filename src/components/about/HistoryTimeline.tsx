@@ -1,6 +1,7 @@
 "use client";
 
-import { useScrollReveal } from '@/service/hooks/useScrollReveal';
+import { useScrollReveal } from "@/hooks";
+
 
 const HistoryTimeline = () => {
   const sectionRef = useScrollReveal<HTMLElement>();
