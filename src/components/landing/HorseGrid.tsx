@@ -1,7 +1,6 @@
 import Image from 'next/image';
 
 export default function HorseGrid({ title }: { title: string }) {
-    // Placeholder data
     const horses = [
         {
             id: 1,
@@ -42,6 +41,46 @@ export default function HorseGrid({ title }: { title: string }) {
             image: '/images/prueba.jpg',
             installments: 'en 12x USD 666',
             shipping: 'Llega mañana'
+        },
+        {
+            id: 6,
+            name: 'Yegua Árabe - Pura Registrada',
+            price: 'USD 6,500',
+            image: '/images/prueba.jpg',
+            installments: 'en 12x USD 541',
+            shipping: 'Envío gratis'
+        },
+        {
+            id: 7,
+            name: 'Silla Argentino - Maestro de Salto',
+            price: 'USD 15,000',
+            image: '/images/prueba.jpg',
+            installments: 'Consulte financiación',
+            shipping: ''
+        },
+        {
+            id: 8,
+            name: 'Pony Galés - Ideal Niños',
+            price: 'ARS 1,500,000',
+            image: '/images/prueba.jpg',
+            installments: 'en 3x sin interés',
+            shipping: 'Llega hoy'
+        },
+        {
+            id: 9,
+            name: 'Padrillo Percherón - Excelente Genética',
+            price: 'USD 9,000',
+            image: '/images/prueba.jpg',
+            installments: 'Plan Canje',
+            shipping: 'Envío gratis'
+        },
+        {
+            id: 10,
+            name: 'Potranca Appaloosa - 2 Años',
+            price: 'USD 4,500',
+            image: '/images/prueba.jpg',
+            installments: 'en 6x USD 750',
+            shipping: ''
         },
     ];
 
