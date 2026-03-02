@@ -14,6 +14,7 @@ const api_error = () => {
 console.log(api_error());
 
 export const endpoint_register = API_URL + "/api/v1/auth/register";
+export const endpoint_selling = API_URL + "/api/v1/auth/horses";
 // console.log(endpoint_register);
 export const endpoint_login = API_URL + "/api/v1/auth/login";
 console.log(endpoint_login);
