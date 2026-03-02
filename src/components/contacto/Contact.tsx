@@ -3,8 +3,8 @@
 import React, { useState } from  'react';
 import toast, { Toaster } from 'react-hot-toast';
 import Image from 'next/image';
-import simbolo from "../../assets/image.png";
-import contacto from "../../assets/caballosContactos.jpg"
+import simbolo from "../../../public/image.png";
+import contacto from "../../../public/caballosContactos.jpg"
 import { text } from 'stream/consumers';
 
 interface FormsProps {
