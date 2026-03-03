@@ -14,12 +14,8 @@ import { Heart, Loader2 } from 'lucide-react';
 import { horseService } from '@/services/horseService';
 import { Horse } from '@/types/horse';
 
-const FILTERS = [
-    { title: "Verificación", key: "verification", items: ["Verificado", "No Verificado"] },
-    { title: "Razas", key: "breeds", items: ["Pura Sangre", "Cuarto de Milla", "Árabe", "Criollo", "Frisón"] },
-    { title: "Disciplinas", key: "disciplines", items: ["Salto", "Doma", "Polo", "Endurance", "Carreras"] },
-    { title: "Ubicación", key: "locations", items: ["Buenos Aires", "Córdoba", "Santa Fe", "Mendoza", "Salta"] },
-];
+import { DISCIPLINE_TRANSLATIONS, translateDiscipline } from '@/utils/translations';
+import { CATALOG_FILTERS } from '@/constants/catalogFilters';
 
 interface CatalogoProps {
     showFavoritesOnly?: boolean;
@@ -29,11 +25,11 @@ export default function Catalogo({ showFavoritesOnly = false }: CatalogoProps) {
     const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
     const [dateSort, setDateSort] = useState("");
     const [priceSort, setPriceSort] = useState("");
-    const [expandedFilters, setExpandedFilters] = useState<string[]>(FILTERS.map(f => f.title));
+    const [expandedFilters, setExpandedFilters] = useState<string[]>(CATALOG_FILTERS.map(f => f.title));
     const [horses, setHorses] = useState<Horse[]>([]);
     const [isLoading, setIsLoading] = useState(true);
 
-    // Global state from Zustand
+    // Global state Zustand
     const {
         currentPage,
         pageSize,
@@ -49,13 +45,29 @@ export default function Catalogo({ showFavoritesOnly = false }: CatalogoProps) {
 
     const savedHorses = useFavoritesStore((state) => state.savedHorses);
 
-    // Fetch horses from Real API
+
     useEffect(() => {
         const fetchHorses = async () => {
             setIsLoading(true);
             try {
-                // In future passes, we could pass filters to getHorses(...)
-                const data = await horseService.getHorses(currentPage, pageSize);
+                const apiFilters: Record<string, any> = {};
+
+                if (filters.breeds && filters.breeds.length > 0) {
+                    apiFilters.breed = filters.breeds[0];
+                }
+                if (filters.disciplines && filters.disciplines.length > 0) {
+                    const selectedTranslation = filters.disciplines[0];
+                    const enumKey = Object.keys(DISCIPLINE_TRANSLATIONS).find(k => DISCIPLINE_TRANSLATIONS[k] === selectedTranslation);
+                    apiFilters.discipline = enumKey || selectedTranslation;
+                }
+                if (filters.locations && filters.locations.length > 0) {
+                    apiFilters.location = filters.locations[0];
+                }
+                if (filters.verification && filters.verification.length > 0) {
+                    apiFilters.isVerified = filters.verification[0] === 'Verificado';
+                }
+
+                const data = await horseService.getHorses(currentPage, pageSize, apiFilters);
                 setHorses(data.content);
                 setTotalElements(data.totalElements);
                 setTotalPages(data.totalPages);
@@ -67,26 +79,11 @@ export default function Catalogo({ showFavoritesOnly = false }: CatalogoProps) {
             }
         };
 
+        // Debounce or just call it directly since React handles state batches
         fetchHorses();
-    }, [currentPage, pageSize, setTotalElements, setTotalPages]);
+    }, [currentPage, pageSize, filters, setTotalElements, setTotalPages]);
 
-    // Local filtering (Since API filtering parameters are not fully implemented yet)
-    const filteredHorses = horses.filter(horse => {
-        const matchesBreed = filters.breeds.length === 0 || filters.breeds.includes(horse.breed);
-        const matchesSearch = !filters.searchQuery ||
-            (horse.description?.toLowerCase() || "").includes(filters.searchQuery.toLowerCase()) ||
-            horse.breed.toLowerCase().includes(filters.searchQuery.toLowerCase());
-
-        // Verification Filter
-        const matchesVerification = filters.verification.length === 0 ||
-            (filters.verification.includes("Verificado") && horse.status === "VERIFIED") ||
-            (filters.verification.includes("No Verificado") && horse.status !== "VERIFIED");
-
-        if (showFavoritesOnly) {
-            return (savedHorses.includes(horse.id)) && matchesSearch && matchesBreed && matchesVerification;
-        }
-        return matchesSearch && matchesBreed && matchesVerification;
-    });
+    const filteredHorses = showFavoritesOnly ? horses.filter(h => savedHorses.includes(h.id)) : horses;
 
     const toggleFilterSection = (title: string) => {
         setExpandedFilters(prev =>
@@ -99,8 +96,8 @@ export default function Catalogo({ showFavoritesOnly = false }: CatalogoProps) {
     const handleFilterChange = (key: string, item: string) => {
         const currentItems = (filters as any)[key] as string[];
         const newItems = currentItems.includes(item)
-            ? currentItems.filter(i => i !== item)
-            : [...currentItems, item];
+            ? []
+            : [item];
 
         setFilters({ [key]: newItems });
     };
@@ -187,18 +184,18 @@ export default function Catalogo({ showFavoritesOnly = false }: CatalogoProps) {
                                 <h2>Filtros</h2>
                             </div>
 
-                            {FILTERS.map((filter) => {
-                                const isExpanded = expandedFilters.includes(filter.title);
-                                const selectedItems = (filters as any)[filter.key] as string[];
+                            {CATALOG_FILTERS.map((section) => {
+                                const isExpanded = expandedFilters.includes(section.title);
+                                const selectedItems = (filters as any)[section.key] as string[];
 
                                 return (
-                                    <div key={filter.title} className="mb-6 last:mb-0">
+                                    <div key={section.title} className="mb-6 last:mb-0">
                                         <button
-                                            onClick={() => toggleFilterSection(filter.title)}
+                                            onClick={() => toggleFilterSection(section.title)}
                                             className="flex items-center justify-between w-full text-left group mb-3"
                                         >
                                             <span className="font-semibold text-gray-800 group-hover:text-[#C9A24D] transition-colors">
-                                                {filter.title}
+                                                {section.title}
                                             </span>
                                             <ChevronDown
                                                 size={16}
@@ -207,13 +204,13 @@ export default function Catalogo({ showFavoritesOnly = false }: CatalogoProps) {
                                         </button>
                                         <div className={`overflow-hidden transition-all duration-300 ${isExpanded ? 'max-h-64 opacity-100' : 'max-h-0 opacity-0'}`}>
                                             <ul className="space-y-2 pl-1 pb-1">
-                                                {filter.items.map((item) => (
+                                                {section.items.map((item: string) => (
                                                     <li key={item} className="flex items-center gap-2">
                                                         <input
                                                             type="checkbox"
                                                             id={item}
                                                             checked={selectedItems.includes(item)}
-                                                            onChange={() => handleFilterChange(filter.key, item)}
+                                                            onChange={() => handleFilterChange(section.key, item)}
                                                             className="w-4 h-4 rounded border-gray-300 text-[#C9A24D] focus:ring-[#C9A24D]"
                                                         />
                                                         <label htmlFor={item} className="text-sm text-gray-600 cursor-pointer hover:text-[#C9A24D] transition-colors">

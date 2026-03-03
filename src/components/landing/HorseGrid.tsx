@@ -2,6 +2,7 @@ import Link from 'next/link';
 import FavoriteButton from '@/components/ui/FavoriteButton';
 import { CheckCircle } from 'lucide-react';
 import { horseService } from '@/services/horseService';
+import { translateDiscipline } from '@/utils/translations';
 import { Horse } from '@/types/horse';
 
 export default async function HorseGrid({ title }: { title: string }) {
@@ -58,7 +59,7 @@ export default async function HorseGrid({ title }: { title: string }) {
                                             )}
                                             <div className="absolute top-3 left-3 flex gap-2">
                                                 <span className="bg-white/90 backdrop-blur-sm text-[#1F140D] text-[10px] font-bold px-2 py-1 rounded-md shadow-sm uppercase tracking-wider">
-                                                    {horse.discipline}
+                                                    {translateDiscipline(horse.discipline)}
                                                 </span>
                                             </div>
                                             <div className="absolute top-2 right-2 z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300">

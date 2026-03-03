@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 
-export default function WelcomeScreen({ onComplete }: { onComplete: () => void }) {
+export default function WelcomeScreen({ onComplete }: { onComplete?: () => void }) {
     const [isVisible, setIsVisible] = useState(true);
 
     useEffect(() => {
@@ -13,7 +13,7 @@ export default function WelcomeScreen({ onComplete }: { onComplete: () => void }
 
         // Notify parent that animation is done after fade out transition (e.g. 500ms)
         const cleanup = setTimeout(() => {
-            onComplete();
+            if (onComplete) onComplete();
         }, 800);
 
         return () => {
@@ -48,14 +48,6 @@ export default function WelcomeScreen({ onComplete }: { onComplete: () => void }
                     <div className="h-full bg-[#C9A24D] animate-[loading_2s_ease-in-out_infinite]"></div>
                 </div>
             </div>
-
-            <style jsx>{`
-        @keyframes loading {
-          0% { transform: translateX(-100%); }
-          50% { transform: translateX(0); }
-          100% { transform: translateX(100%); }
-        }
-      `}</style>
         </div>
     );
 }

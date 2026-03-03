@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import { translateDiscipline } from '@/utils/translations';
 import { CheckCircle } from 'lucide-react';
 import FavoriteButton from './FavoriteButton';
 import { Horse } from '@/types/horse';
@@ -20,7 +21,6 @@ const formatPrice = (price: number) => {
 
 export default function HorseCard({ horse, viewMode = 'grid' }: HorseCardProps) {
     const isVerified = horse.status === 'VERIFIED';
-    const hasDiscount = horse.discountPrice !== undefined && horse.discountPrice < horse.price;
 
     return (
         <Link href={`/equino/catalogo/${horse.id}`} className="block h-full">
@@ -42,13 +42,8 @@ export default function HorseCard({ horse, viewMode = 'grid' }: HorseCardProps) 
 
                     <div className="absolute top-3 left-3 flex gap-2 flex-col items-start">
                         <span className="bg-white/90 backdrop-blur-sm text-[#1F140D] text-[10px] font-bold px-2 py-1 rounded-md shadow-sm uppercase tracking-wider">
-                            {horse.discipline}
+                            {translateDiscipline(horse.discipline)}
                         </span>
-                        {hasDiscount && (
-                            <span className="bg-red-500/90 text-white text-[10px] font-bold px-2 py-1 rounded-md shadow-sm uppercase tracking-wider mt-1">
-                                Oferta
-                            </span>
-                        )}
                     </div>
                     <div className="absolute top-2 right-2 z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                         <FavoriteButton horseId={horse.id} />
@@ -56,16 +51,6 @@ export default function HorseCard({ horse, viewMode = 'grid' }: HorseCardProps) 
                 </div>
 
                 <div className="p-5 flex flex-col flex-1">
-                    <div className="mb-2 flex items-baseline gap-2">
-                        {hasDiscount ? (
-                            <>
-                                <span className="text-2xl font-bold text-[#1F140D]">{formatPrice(horse.discountPrice!)}</span>
-                                <span className="text-sm text-gray-400 line-through">{formatPrice(horse.price)}</span>
-                            </>
-                        ) : (
-                            <span className="text-2xl font-bold text-[#1F140D]">{formatPrice(horse.price)}</span>
-                        )}
-                    </div>
                     <h3 className="text-gray-800 font-medium line-clamp-2 mb-3 leading-snug group-hover:text-[#C9A24D] transition-colors">
                         {horse.description ? horse.description : `${horse.breed} de ${horse.age} años`}
                     </h3>

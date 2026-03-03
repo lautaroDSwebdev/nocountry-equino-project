@@ -56,13 +56,13 @@ export interface LoginResponseType {
 }
 
 export interface User {
-  id: number
-  dni: string
-  name: string
-  last_name: string
-  email: string
-  number: any
-  address: any
-  rol: string
-  created_at: string
+  id: number;
+  dni: string;
+  name: string;
+  lastName: string;
+  email: string;
+  number: string | null;
+  address: string | null;
+  rol: string;
+  createdAt: string;
 }

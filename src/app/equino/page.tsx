@@ -7,7 +7,7 @@ function page() {
     return (
         <>
             <Hero></Hero>
-            <HorseGrid></HorseGrid>
+            <HorseGrid title="Nuestros Caballos" />
         </>
     )
 }

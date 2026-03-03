@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import { horseService } from "@/services/horseService";
+import { translateDiscipline, translateGender, translateTemperament } from "@/utils/translations";
 import Link from "next/link";
 import {
   ChevronLeft,
@@ -43,7 +44,6 @@ export default async function HorseDetailPage({
 
   const isVerified = horse.status === 'VERIFIED';
   const titleDisplay = horse.description ? horse.description : `${horse.breed} de ${horse.age} años`;
-  // Fallbacks per OpenApi shape not having array for gallery initially, etc.
   const galleryImages = horse.imageIds && horse.imageIds.length > 0 ? horse.imageIds : ['https://via.placeholder.com/800x600?text=Sin+Imagen'];
 
   return (
@@ -63,7 +63,7 @@ export default async function HorseDetailPage({
         <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-0">
             {/* Image Gallery Column */}
-            <HorseGallery images={galleryImages} category={horse.discipline} />
+            <HorseGallery images={galleryImages} category={translateDiscipline(horse.discipline)} />
 
             {/* Details Column */}
             <div className="p-8 md:p-10 flex flex-col">
@@ -106,19 +106,19 @@ export default async function HorseDetailPage({
                     <Layers size={14} /> Temperamento
                   </div>
                   <div className="font-semibold text-gray-900">
-                    {horse.temperament}
+                    {translateTemperament(horse.temperament)}
                   </div>
                 </div>
                 <div className="bg-gray-50 p-4 rounded-xl border border-gray-100">
                   <div className="text-gray-500 text-sm mb-1">Disciplina</div>
                   <div className="font-semibold text-gray-900">
-                    {horse.discipline}
+                    {translateDiscipline(horse.discipline)}
                   </div>
                 </div>
                 <div className="bg-gray-50 p-4 rounded-xl border border-gray-100">
                   <div className="text-gray-500 text-sm mb-1">Sexo</div>
                   <div className="font-semibold text-gray-900">
-                    {horse.gender}
+                    {translateGender(horse.gender)}
                   </div>
                 </div>
               </div>

@@ -5,11 +5,20 @@ const API_BASE_URL = 'https://equitrust-backend.onrender.com/api/v1';
 export const horseService = {
     getHorses: async (page: number = 0, size: number = 10, otherFilters?: any): Promise<PageHorseResponse> => {
         try {
-            const queryParams = new URLSearchParams({
+            const params: Record<string, string> = {
                 page: page.toString(),
                 size: size.toString(),
-                ...otherFilters,
-            });
+            };
+
+            if (otherFilters) {
+                Object.entries(otherFilters).forEach(([key, value]) => {
+                    if (value !== undefined && value !== null && value !== '') {
+                        params[key] = value.toString();
+                    }
+                });
+            }
+
+            const queryParams = new URLSearchParams(params);
 
             const response = await fetch(`${API_BASE_URL}/horses?${queryParams.toString()}`);
 
