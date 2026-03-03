@@ -15,6 +15,10 @@ const useLoginValidations = (form: FormValues): FormErrors => {
     } else if (!regexEmail.test(form.email.trim())) {
       errors.email = "Completa correctamente el campo 'Email'";
       toast.error("El campo 'Email' es incorrecto");
+    }else{
+      toast.success("El campo 'Email' es valido");
+      toast.success("El Email  es valido");
+      
     }
   
     if (!form.password) {
@@ -22,6 +26,10 @@ const useLoginValidations = (form: FormValues): FormErrors => {
     } else if (form.password.length < 6) {
       errors.password = "La contraseña debe tener al menos 6 caracteres";
       toast.error("La contraseña debe tener al menos 6 caracteres");
+    }else{
+      toast.success("La contraseña es valida");
+      toast.success("El campo 'Contraseña' es valido");
+      
     }
   
    

@@ -5,6 +5,7 @@ import { LoginResponseType, namesFormulariLogin } from "@/types/types";
 import { endpoint_login } from "@/service/api-general";
 import { useRouter } from "next/navigation";
 import { authStore } from "@/store/token-store";
+import toast from "react-hot-toast";
 
 // namesFormulariLogin: por acá llamamos al objeto para almacenar en memoria la info que ingresa del fomrulario
 // validateForm: por acá ingresamos la funcion con las condicionales para los mensajes de los inputs
@@ -25,7 +26,7 @@ export const useFormLogin = (namesFormulariLogin: namesFormulariLogin, validateF
       [e.target.name]: e.target.value,
     });
   };
- 
+
 
   const handleBlur = (e: any) => {
     handleChange(e);
@@ -38,19 +39,20 @@ export const useFormLogin = (namesFormulariLogin: namesFormulariLogin, validateF
 
     if (Object.keys(errors).length === 0) {
       // alert("Enviando Formulario");
-      setLoading(true);
       try {
         const req = await fetch(endpoint_login, {
           method: "POST", headers: {
             "Content-Type": "application/json",
           }, body: JSON.stringify(form)
         })
-        console.log(form);
+        // console.log(form);
         const res = await req.json() as LoginResponseType
-
+        
         console.log(req.status);
         if (req.status === 200) {
-          console.log("peticion exitosa" + req.status);
+        
+          console.log("peticion exitosa " + req.status);
+          toast.success("Inicio de Sesion exitoso")
           localStorage.setItem(
             "access_token",
             JSON.stringify({
@@ -60,9 +62,9 @@ export const useFormLogin = (namesFormulariLogin: namesFormulariLogin, validateF
           router.push("/equino")
         } else if (req.status === 403) {
           console.log("hubo un fallo en la peticion", + req.status);
+          toast.error("Fallo en el Inicio de Sesion, comprueba los datos")
           throw Error
         }
-        setLoading(false);
         console.log(res);
         return res
 

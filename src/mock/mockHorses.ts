@@ -171,3 +171,4 @@ export const HORSES = [
         vendor: { id: 'v9', name: 'Dressage San Luis' }
     },
 ];
+
