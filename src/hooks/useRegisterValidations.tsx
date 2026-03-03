@@ -13,6 +13,8 @@ const useRegisterValidations = (form: FormValues): FormErrors => {
     } else if (!regexDni.test(form.dni.trim())) {
       errors.dni = "El campo 'DNI' debe tener entre 7 y 8 dígitos";
       toast.error("El campo 'DNI' debe tener entre 7 y 8 dígitos");
+    } else {
+      toast.success("El campo 'DNI' es válido");
     }
   
     if (!form.name.trim()) {
@@ -20,6 +22,8 @@ const useRegisterValidations = (form: FormValues): FormErrors => {
     } else if (!regexName.test(form.name.trim())) {
       errors.name = "El campo 'Nombre' sólo acepta letras y espacios en blanco";
       toast.error("El campo 'Nombre' sólo acepta letras y espacios en blanco");
+    } else {
+      toast.success("El campo 'Nombre' es válido");
     }
   
     if (!form.lastname.trim()) {
@@ -27,6 +31,8 @@ const useRegisterValidations = (form: FormValues): FormErrors => {
     } else if (!regexName.test(form.lastname.trim())) {
       errors.lastname = "El campo 'Apellido' sólo acepta letras y espacios en blanco";
       toast.error("El campo 'Apellido' sólo acepta letras y espacios en blanco");
+    } else {
+      toast.success("El campo 'Apellido' es válido");
     }
   
     if (!form.email.trim()) {
@@ -34,6 +40,8 @@ const useRegisterValidations = (form: FormValues): FormErrors => {
     } else if (!regexEmail.test(form.email.trim())) {
       errors.email = "Completa correctamente el campo 'Email'";
       toast.error("El campo 'Email' es incorrecto");
+    } else {
+      toast.success("El campo 'Email' es válido");
     }
   
     if (!form.password) {
@@ -41,10 +49,15 @@ const useRegisterValidations = (form: FormValues): FormErrors => {
     } else if (form.password.length < 6) {
       errors.password = "La contraseña debe tener al menos 6 caracteres";
       toast.error("La contraseña debe tener al menos 6 caracteres");
+    } else {
+      toast.success("La contraseña es válida");
+      toast.success("El campo 'Contraseña' es válido");
     }
   
     if (!form.rol.trim()) {
       toast.error("El campo 'Rol' es requerido");
+    } else {
+      toast.success("El campo 'Rol' es válido");
     }
   
     return errors;

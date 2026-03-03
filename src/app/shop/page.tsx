@@ -2,8 +2,6 @@ import Filter from "@/components/filter/Filter";
 import Categories from "@/components/landing/Categories";
 import Hero from "@/components/landing/Hero";
 import HorseGrid from "@/components/landing/HorseGrid";
-import Footer from "@/components/layout/Footer";
-import Header from "@/components/layout/Header";
 
 const page = () => {
   return (

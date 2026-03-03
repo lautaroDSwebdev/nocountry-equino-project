@@ -81,7 +81,7 @@ export default function Header() {
                             className="h-14 md:h-16 w-auto object-contain drop-shadow-[0_0_15px_rgba(201,162,77,0.3)]"
                         />
                         <span className="text-2xl md:text-3xl font-bold text-white tracking-tight drop-shadow-md">
-                            HORSE<span className="font-light text-[#C9A24D]">TRUST</span>
+                            Equi<span className="font-light text-[#C9A24D]">Trust</span>
                         </span>
                     </Link>
 
