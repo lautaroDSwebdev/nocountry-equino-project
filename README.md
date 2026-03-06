@@ -242,31 +242,50 @@ María                                    ← Nombre
 ```
 S02-26-Equipo-22-Web-App-Front/
 .
+.
+├── flujo de carpetas
 └── src/
     ├── app/
+    │   ├── equino/
+    │   │   ├── ayuda/
+    │   │   ├── catalogo/
+    │   │   ├── chat-demo/
+    │   │   ├── contacto/
+    │   │   ├── guardados/
+    │   │   ├── novedades/
+    │   │   ├── perfil/
+    │   │   ├── quienes-somos/
+    │   │   └── vender/
+    │   ├── login/
+    │   └── register/
     ├── assets/
-    ├── types/
-    ├── store/
+    ├── components/
+    │   ├── about/
+    │   ├── catalogo/
+    │   ├── chat/
+    │   ├── contacto/
+    │   ├── context/
+    │   ├── filter/
+    │   ├── landing/
+    │   ├── layout/
+    │   ├── modal/
+    │   ├── ui/
+    │   └── vender/
     ├── hooks/
     ├── mock/
+    ├── constants/
     ├── schemas/
     ├── service/
-    │   ├── hooks/
     │   ├── mutations/
+    │   ├── service.hook/
     │   ├── use-cases/
     │   └── api-general.ts
-    └── components/
-        ├── about
-        ├── chat
-        ├── columns
-        ├── context/
-        ├── filter/
-        ├── forms/
-        ├── landing/
-        ├── layout/
-        ├── modal/
-        ├── tables/
-        └── ui/
+    ├── services/
+    │   ├── horseService.ts
+    │   └── userService.ts
+    ├── store/
+    ├── types/
+    └── utils/
 ```
 
 
