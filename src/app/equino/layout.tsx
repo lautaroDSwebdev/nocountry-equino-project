@@ -1,6 +1,4 @@
 "use client";
-
-import Hero from "@/components/landing/Hero";
 import WelcomeScreen from "@/components/landing/WelcomeScreen";
 import Footer from "@/components/layout/Footer";
 import Header from "@/components/layout/Header";
