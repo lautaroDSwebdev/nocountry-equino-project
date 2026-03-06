@@ -1,0 +1,46 @@
+
+> frontend-equino@0.1.0 build
+> next build
+
+▲ Next.js 16.1.6 (Turbopack)
+- Environments: .env
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 4.8s
+  Running TypeScript ...
+  Collecting page data using 15 workers ...
+  Generating static pages using 15 workers (0/19) ...
+  Generating static pages using 15 workers (4/19) 
+https://equitrust-backend.onrender.com
+undefined
+https://equitrust-backend.onrender.com/api/v1/auth/login
+  Generating static pages using 15 workers (9/19) 
+  Generating static pages using 15 workers (14/19) 
+null
+✓ Generating static pages using 15 workers (19/19) in 642.8ms
+  Finalizing page optimization ...
+
+Route (app)
+┌ ○ /
+├ ○ /_not-found
+├ ○ /contacto
+├ ○ /equino
+├ ○ /equino/ayuda
+├ ○ /equino/catalogo
+├ ƒ /equino/catalogo/[id]
+├ ○ /equino/chat-demo
+├ ○ /equino/contacto
+├ ○ /equino/guardados
+├ ○ /equino/novedades
+├ ○ /equino/quienes-somos
+├ ○ /equino/vender
+├ ○ /guardados
+├ ○ /login
+├ ○ /perfil
+├ ○ /register
+└ ○ /shop
+
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+

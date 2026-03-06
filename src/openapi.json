@@ -1,0 +1,1896 @@
+{
+    "openapi": "3.1.0",
+    "info": {
+        "title": "OpenAPI definition",
+        "version": "v0"
+    },
+    "servers": [
+        {
+            "url": "https://equitrust-backend.onrender.com",
+            "description": "Generated server url"
+        }
+    ],
+    "tags": [
+        {
+            "name": "Users",
+            "description": "User management endpoints"
+        },
+        {
+            "name": "Chat History",
+            "description": "REST API for chat history"
+        },
+        {
+            "name": "Veterinary Records",
+            "description": "API for managing veterinary records of a horse"
+        },
+        {
+            "name": "Horses",
+            "description": "API for horse management"
+        },
+        {
+            "name": "Authentication",
+            "description": "Authentication endpoints"
+        }
+    ],
+    "paths": {
+        "/api/v1/users/{id}/toggle-status": {
+            "put": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Enable/Disable user (Admin only)",
+                "operationId": "toggleUserStatus",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UserResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/users/me": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Get current user profile",
+                "operationId": "getCurrentUser",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UserResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Update current user profile",
+                "operationId": "updateCurrentUser",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateProfileRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UserResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/users/me/password": {
+            "put": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Change current user password",
+                "operationId": "changePassword",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ChangePasswordRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "type": "object",
+                                    "additionalProperties": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/horses": {
+            "get": {
+                "tags": [
+                    "Horses"
+                ],
+                "summary": "Get horse catalog",
+                "description": "Returns a paginated list of horses with the ability to apply filters such as price, age, breed, location, and verification status.",
+                "operationId": "getHorses",
+                "parameters": [
+                    {
+                        "name": "breed",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "gender",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "description": "Horse gender",
+                            "enum": [
+                                "STALLION",
+                                "MARE",
+                                "GELDING"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "temperament",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "description": "Horse temperament",
+                            "enum": [
+                                "CALM",
+                                "MODERATE",
+                                "ENERGIC"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "discipline",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "description": "Horse discipline",
+                            "enum": [
+                                "RACING",
+                                "SHOW_JUMPING",
+                                "DRESSAGE",
+                                "POLO",
+                                "RECREATIONAL",
+                                "ENDURANCE"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "minPrice",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "maxPrice",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "minAge",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int32"
+                        }
+                    },
+                    {
+                        "name": "maxAge",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int32"
+                        }
+                    },
+                    {
+                        "name": "location",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "isVerified",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "boolean"
+                        }
+                    },
+                    {
+                        "name": "includeSold",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "boolean"
+                        }
+                    },
+                    {
+                        "name": "search",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Zero-based page index (0..N)",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "default": 0,
+                            "minimum": 0
+                        }
+                    },
+                    {
+                        "name": "size",
+                        "in": "query",
+                        "description": "The size of the page to be returned",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "default": 12,
+                            "minimum": 1
+                        }
+                    },
+                    {
+                        "name": "sort",
+                        "in": "query",
+                        "description": "Sorting criteria in the format: property,(asc|desc). Default sort order is ascending. Multiple sort criteria are supported.",
+                        "required": false,
+                        "schema": {
+                            "type": "array",
+                            "default": [
+                                "createdAt,DESC"
+                            ],
+                            "items": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Paginated horse catalog retrieved successfully",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PageHorseResponseDTO"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid filter parameters (e.g., invalid price or age range)",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PageHorseResponseDTO"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Horses"
+                ],
+                "summary": "Create a new horse",
+                "description": "Creates a new horse in the system.",
+                "operationId": "createHorse",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateHorseDTO"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "201": {
+                        "description": "Horse created successfully",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HorseResponseDTO"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid input data",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HorseResponseDTO"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Owner not found",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HorseResponseDTO"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/horses/{horseId}/records": {
+            "get": {
+                "tags": [
+                    "Veterinary Records"
+                ],
+                "summary": "Get all veterinary records",
+                "description": "Returns all veterinary records associated with a specific horse.",
+                "operationId": "getAllRecords",
+                "parameters": [
+                    {
+                        "name": "horseId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Records retrieved successfully",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/VeterinaryRecordResponseDTO"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Veterinary Records"
+                ],
+                "summary": "Create a veterinary record",
+                "description": "Creates a new veterinary record for a specific horse. Only the owner or an admin can perform this action.",
+                "operationId": "createVeterinaryRecord",
+                "parameters": [
+                    {
+                        "name": "horseId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateVeterinaryRecordDTO"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "201": {
+                        "description": "Record created successfully",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/VeterinaryRecordResponseDTO"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid input data",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/VeterinaryRecordResponseDTO"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Access denied",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/VeterinaryRecordResponseDTO"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Horse not found",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/VeterinaryRecordResponseDTO"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/auth/register": {
+            "post": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "Register a new user",
+                "operationId": "register",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/RegisterRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/AuthResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/auth/login": {
+            "post": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "Login user",
+                "operationId": "login",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/LoginRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/AuthResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/horses/{id}": {
+            "get": {
+                "tags": [
+                    "Horses"
+                ],
+                "summary": "Get horse by ID",
+                "description": "Retrieves details of a specific horse by its ID.",
+                "operationId": "getHorseById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Horse found",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HorseResponseDTO"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Horse not found",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HorseResponseDTO"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Horses"
+                ],
+                "summary": "Delete horse (Soft delete)",
+                "description": "Deletes a horse by marking it as deleted.",
+                "operationId": "deleteHorse",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Horse deleted successfully"
+                    },
+                    "404": {
+                        "description": "Horse not found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "patch": {
+                "tags": [
+                    "Horses"
+                ],
+                "summary": "Update horse",
+                "description": "Updates an existing horse.",
+                "operationId": "updateHorse",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateHorseDTO"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Horse updated successfully",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HorseResponseDTO"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid input data",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HorseResponseDTO"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Horse or owner not found",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HorseResponseDTO"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/horses/{horseId}/records/{recordId}": {
+            "get": {
+                "tags": [
+                    "Veterinary Records"
+                ],
+                "summary": "Get a veterinary record by ID",
+                "description": "Returns a specific veterinary record by its ID.",
+                "operationId": "getRecordById",
+                "parameters": [
+                    {
+                        "name": "horseId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    },
+                    {
+                        "name": "recordId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Record found",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/VeterinaryRecordResponseDTO"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Record or horse not found",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/VeterinaryRecordResponseDTO"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Veterinary Records"
+                ],
+                "summary": "Delete a veterinary record",
+                "description": "Deletes a veterinary record. Only the owner or an admin can perform this action.",
+                "operationId": "deleteRecord",
+                "parameters": [
+                    {
+                        "name": "horseId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    },
+                    {
+                        "name": "recordId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Record deleted successfully"
+                    },
+                    "403": {
+                        "description": "Access denied"
+                    },
+                    "404": {
+                        "description": "Record or horse not found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "patch": {
+                "tags": [
+                    "Veterinary Records"
+                ],
+                "summary": "Update a veterinary record",
+                "description": "Updates an existing veterinary record. Only the owner or an admin can perform this action.",
+                "operationId": "updateRecord",
+                "parameters": [
+                    {
+                        "name": "horseId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    },
+                    {
+                        "name": "recordId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateVeterinaryRecordDTO"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Record updated successfully",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/VeterinaryRecordResponseDTO"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid input data",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/VeterinaryRecordResponseDTO"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Access denied",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/VeterinaryRecordResponseDTO"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Record or horse not found",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/VeterinaryRecordResponseDTO"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/users": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Get all users (Admin only)",
+                "operationId": "getAllUsers",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/UserResponse"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/users/{id}": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Get user by ID (Admin only)",
+                "operationId": "getUserById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UserResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Delete user (Soft delete - Admin only)",
+                "operationId": "deleteUser",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "type": "object",
+                                    "additionalProperties": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/users/email/{email}": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Get user by email (Admin only)",
+                "operationId": "getUserByEmail",
+                "parameters": [
+                    {
+                        "name": "email",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UserResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/users/dni/{dni}": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Get user by DNI (Admin only)",
+                "operationId": "getUserByDni",
+                "parameters": [
+                    {
+                        "name": "dni",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UserResponse"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/horses/{horseId}/chat/history/{buyerId}": {
+            "get": {
+                "tags": [
+                    "Chat History"
+                ],
+                "summary": "Get conversation history between buyer and horse owner",
+                "operationId": "getHistory",
+                "parameters": [
+                    {
+                        "name": "horseId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    },
+                    {
+                        "name": "buyerId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int32",
+                            "default": 0
+                        }
+                    },
+                    {
+                        "name": "size",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int32",
+                            "default": 20
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/PageChatMessage"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/auth/test": {
+            "get": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "Test endpoint to verify authentication is working",
+                "operationId": "test",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "UserResponse": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "dni": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "last_name": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "number": {
+                        "type": "string"
+                    },
+                    "address": {
+                        "type": "string"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                }
+            },
+            "UpdateProfileRequest": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "maxLength": 50,
+                        "minLength": 2
+                    },
+                    "lastName": {
+                        "type": "string",
+                        "maxLength": 50,
+                        "minLength": 2
+                    },
+                    "number": {
+                        "type": "string",
+                        "maxLength": 20,
+                        "minLength": 0
+                    },
+                    "address": {
+                        "type": "string",
+                        "maxLength": 500,
+                        "minLength": 0
+                    }
+                }
+            },
+            "ChangePasswordRequest": {
+                "type": "object",
+                "properties": {
+                    "currentPassword": {
+                        "type": "string"
+                    },
+                    "newPassword": {
+                        "type": "string",
+                        "maxLength": 2147483647,
+                        "minLength": 8,
+                        "pattern": "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).*$"
+                    },
+                    "confirmPassword": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "confirmPassword",
+                    "currentPassword",
+                    "newPassword"
+                ]
+            },
+            "CreateHorseDTO": {
+                "type": "object",
+                "description": "DTO for creating a new horse",
+                "properties": {
+                    "breed": {
+                        "type": "string",
+                        "description": "Horse breed",
+                        "example": "Arabian"
+                    },
+                    "age": {
+                        "type": "integer",
+                        "format": "int32",
+                        "description": "Horse age in years",
+                        "example": 5,
+                        "maximum": 40,
+                        "minimum": 0
+                    },
+                    "gender": {
+                        "type": "string",
+                        "description": "Horse gender",
+                        "enum": [
+                            "STALLION",
+                            "MARE",
+                            "GELDING"
+                        ],
+                        "example": "STALLION"
+                    },
+                    "temperament": {
+                        "type": "string",
+                        "description": "Horse temperament",
+                        "enum": [
+                            "CALM",
+                            "MODERATE",
+                            "ENERGIC"
+                        ],
+                        "example": "CALM"
+                    },
+                    "discipline": {
+                        "type": "string",
+                        "description": "Horse discipline",
+                        "enum": [
+                            "RACING",
+                            "SHOW_JUMPING",
+                            "DRESSAGE",
+                            "POLO",
+                            "RECREATIONAL",
+                            "ENDURANCE"
+                        ],
+                        "example": "SHOW_JUMPING"
+                    },
+                    "price": {
+                        "type": "number",
+                        "description": "Base price of the horse",
+                        "example": 15000,
+                        "minimum": 0.01
+                    },
+                    "discountPrice": {
+                        "type": "number",
+                        "description": "Optional discounted price",
+                        "example": 12000,
+                        "minimum": 0.01
+                    },
+                    "location": {
+                        "type": "string",
+                        "description": "Horse location",
+                        "example": "Buenos Aires, Argentina"
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "Detailed description of the horse",
+                        "example": "Excellent jumper with competition experience"
+                    },
+                    "imageIds": {
+                        "type": "array",
+                        "description": "List of Cloudinary image public IDs",
+                        "example": [
+                            "horse_img_1",
+                            "horse_img_2"
+                        ],
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "videoUrl": {
+                        "type": "string",
+                        "description": "Youtube video url",
+                        "example": "https://www.youtube.com/watch?v=s_IPgb7rF-g"
+                    }
+                },
+                "required": [
+                    "age",
+                    "breed",
+                    "discipline",
+                    "gender",
+                    "imageIds",
+                    "location",
+                    "price",
+                    "temperament"
+                ]
+            },
+            "HorseResponseDTO": {
+                "type": "object",
+                "description": "Horse response DTO",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "format": "int64",
+                        "description": "Horse ID",
+                        "example": 10
+                    },
+                    "breed": {
+                        "type": "string",
+                        "description": "Breed",
+                        "example": "Arabian"
+                    },
+                    "age": {
+                        "type": "integer",
+                        "format": "int32",
+                        "description": "Age",
+                        "example": 5
+                    },
+                    "gender": {
+                        "type": "string",
+                        "description": "Gender",
+                        "enum": [
+                            "STALLION",
+                            "MARE",
+                            "GELDING"
+                        ],
+                        "example": "STALLION"
+                    },
+                    "temperament": {
+                        "type": "string",
+                        "description": "Temperament",
+                        "enum": [
+                            "CALM",
+                            "MODERATE",
+                            "ENERGIC"
+                        ],
+                        "example": "CALM"
+                    },
+                    "discipline": {
+                        "type": "string",
+                        "description": "Discipline",
+                        "enum": [
+                            "RACING",
+                            "SHOW_JUMPING",
+                            "DRESSAGE",
+                            "POLO",
+                            "RECREATIONAL",
+                            "ENDURANCE"
+                        ],
+                        "example": "SHOW_JUMPING"
+                    },
+                    "price": {
+                        "type": "number",
+                        "description": "Base price",
+                        "example": 15000
+                    },
+                    "discountPrice": {
+                        "type": "number",
+                        "description": "Discount price",
+                        "example": 12000
+                    },
+                    "sold": {
+                        "type": "boolean",
+                        "description": "Indicates if the horse is sold",
+                        "example": false
+                    },
+                    "location": {
+                        "type": "string",
+                        "description": "Location",
+                        "example": "Buenos Aires"
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "Description"
+                    },
+                    "imageIds": {
+                        "type": "array",
+                        "description": "List of image public IDs",
+                        "example": [
+                            "horse_img_1",
+                            "horse_img_2"
+                        ],
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "videoUrl": {
+                        "type": "string",
+                        "description": "Youtube video url",
+                        "example": "https://www.youtube.com/watch?v=s_IPgb7rF-g"
+                    },
+                    "status": {
+                        "type": "string",
+                        "description": "Verification status",
+                        "enum": [
+                            "PENDING_DATA",
+                            "PENDING_VERIFICATION",
+                            "VERIFIED",
+                            "REJECTED"
+                        ],
+                        "example": "APPROVED"
+                    },
+                    "ownerId": {
+                        "type": "integer",
+                        "format": "int64",
+                        "description": "Owner ID",
+                        "example": 1
+                    }
+                }
+            },
+            "CreateVeterinaryRecordDTO": {
+                "type": "object",
+                "properties": {
+                    "description": {
+                        "type": "string"
+                    },
+                    "pdfLink": {
+                        "type": "string"
+                    },
+                    "date": {
+                        "type": "string",
+                        "format": "date"
+                    },
+                    "clinicAddress": {
+                        "type": "string"
+                    },
+                    "veterinarianLicense": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "clinicAddress",
+                    "date",
+                    "description",
+                    "pdfLink",
+                    "veterinarianLicense"
+                ]
+            },
+            "VeterinaryRecordResponseDTO": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "pdfLink": {
+                        "type": "string"
+                    },
+                    "date": {
+                        "type": "string",
+                        "format": "date"
+                    },
+                    "clinicAddress": {
+                        "type": "string"
+                    },
+                    "veterinarianLicense": {
+                        "type": "string"
+                    },
+                    "horseId": {
+                        "type": "integer",
+                        "format": "int64"
+                    }
+                }
+            },
+            "RegisterRequest": {
+                "type": "object",
+                "properties": {
+                    "dni": {
+                        "type": "string",
+                        "maxLength": 20,
+                        "minLength": 6
+                    },
+                    "name": {
+                        "type": "string",
+                        "maxLength": 50,
+                        "minLength": 2
+                    },
+                    "lastName": {
+                        "type": "string",
+                        "maxLength": 50,
+                        "minLength": 2
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "password": {
+                        "type": "string",
+                        "maxLength": 2147483647,
+                        "minLength": 8,
+                        "pattern": "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).*$"
+                    },
+                    "number": {
+                        "type": "string",
+                        "maxLength": 20,
+                        "minLength": 0
+                    },
+                    "address": {
+                        "type": "string",
+                        "maxLength": 500,
+                        "minLength": 0
+                    }
+                },
+                "required": [
+                    "dni",
+                    "email",
+                    "lastName",
+                    "name",
+                    "password"
+                ]
+            },
+            "AuthResponse": {
+                "type": "object",
+                "properties": {
+                    "access_token": {
+                        "type": "string"
+                    },
+                    "token_type": {
+                        "type": "string"
+                    },
+                    "expires_in": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "user": {
+                        "$ref": "#/components/schemas/UserResponse"
+                    }
+                }
+            },
+            "LoginRequest": {
+                "type": "object",
+                "properties": {
+                    "email": {
+                        "type": "string"
+                    },
+                    "password": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "email",
+                    "password"
+                ]
+            },
+            "UpdateHorseDTO": {
+                "type": "object",
+                "description": "DTO for partially updating a horse (PATCH)",
+                "properties": {
+                    "breed": {
+                        "type": "string",
+                        "description": "Horse breed",
+                        "example": "Arabian"
+                    },
+                    "age": {
+                        "type": "integer",
+                        "format": "int32",
+                        "description": "Horse age in years",
+                        "example": 6,
+                        "maximum": 40,
+                        "minimum": 0
+                    },
+                    "gender": {
+                        "type": "string",
+                        "description": "Horse gender",
+                        "enum": [
+                            "STALLION",
+                            "MARE",
+                            "GELDING"
+                        ],
+                        "example": "MARE"
+                    },
+                    "temperament": {
+                        "type": "string",
+                        "description": "Horse temperament",
+                        "enum": [
+                            "CALM",
+                            "MODERATE",
+                            "ENERGIC"
+                        ],
+                        "example": "ENERGETIC"
+                    },
+                    "discipline": {
+                        "type": "string",
+                        "description": "Horse discipline",
+                        "enum": [
+                            "RACING",
+                            "SHOW_JUMPING",
+                            "DRESSAGE",
+                            "POLO",
+                            "RECREATIONAL",
+                            "ENDURANCE"
+                        ],
+                        "example": "DRESSAGE"
+                    },
+                    "price": {
+                        "type": "number",
+                        "description": "Base price",
+                        "example": 18000,
+                        "minimum": 0.01
+                    },
+                    "discountPrice": {
+                        "type": "number",
+                        "description": "Discount price",
+                        "example": 15000,
+                        "minimum": 0.01
+                    },
+                    "location": {
+                        "type": "string",
+                        "description": "Horse location",
+                        "example": "Cordoba, Argentina"
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "Detailed description"
+                    },
+                    "imageIds": {
+                        "type": "array",
+                        "description": "Replace all image public IDs",
+                        "example": [
+                            "new_img_1",
+                            "new_img_2"
+                        ],
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "videoUrl": {
+                        "type": "string",
+                        "description": "Youtube video url",
+                        "example": "https://www.youtube.com/watch?v=s_IPgb7rF-g"
+                    }
+                }
+            },
+            "UpdateVeterinaryRecordDTO": {
+                "type": "object",
+                "properties": {
+                    "description": {
+                        "type": "string"
+                    },
+                    "pdfLink": {
+                        "type": "string"
+                    },
+                    "date": {
+                        "type": "string",
+                        "format": "date"
+                    },
+                    "clinicAddress": {
+                        "type": "string"
+                    },
+                    "veterinarianLicense": {
+                        "type": "string"
+                    }
+                }
+            },
+            "PageHorseResponseDTO": {
+                "type": "object",
+                "properties": {
+                    "totalElements": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "totalPages": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "first": {
+                        "type": "boolean"
+                    },
+                    "last": {
+                        "type": "boolean"
+                    },
+                    "pageable": {
+                        "$ref": "#/components/schemas/PageableObject"
+                    },
+                    "numberOfElements": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "size": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "content": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/HorseResponseDTO"
+                        }
+                    },
+                    "number": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "sort": {
+                        "$ref": "#/components/schemas/SortObject"
+                    },
+                    "empty": {
+                        "type": "boolean"
+                    }
+                }
+            },
+            "PageableObject": {
+                "type": "object",
+                "properties": {
+                    "paged": {
+                        "type": "boolean"
+                    },
+                    "pageNumber": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "pageSize": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "unpaged": {
+                        "type": "boolean"
+                    },
+                    "offset": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "sort": {
+                        "$ref": "#/components/schemas/SortObject"
+                    }
+                }
+            },
+            "SortObject": {
+                "type": "object",
+                "properties": {
+                    "sorted": {
+                        "type": "boolean"
+                    },
+                    "unsorted": {
+                        "type": "boolean"
+                    },
+                    "empty": {
+                        "type": "boolean"
+                    }
+                }
+            },
+            "ChatMessage": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "senderId": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "receiverId": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "horseId": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "content": {
+                        "type": "string",
+                        "maxLength": 1000,
+                        "minLength": 0
+                    },
+                    "createdAt": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updatedAt": {
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                },
+                "required": [
+                    "horseId",
+                    "receiverId",
+                    "senderId"
+                ]
+            },
+            "PageChatMessage": {
+                "type": "object",
+                "properties": {
+                    "totalElements": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "totalPages": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "first": {
+                        "type": "boolean"
+                    },
+                    "last": {
+                        "type": "boolean"
+                    },
+                    "pageable": {
+                        "$ref": "#/components/schemas/PageableObject"
+                    },
+                    "numberOfElements": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "size": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "content": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ChatMessage"
+                        }
+                    },
+                    "number": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "sort": {
+                        "$ref": "#/components/schemas/SortObject"
+                    },
+                    "empty": {
+                        "type": "boolean"
+                    }
+                }
+            }
+        },
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "name": "bearerAuth",
+                "scheme": "bearer",
+                "bearerFormat": "JWT"
+            }
+        }
+    }
+}

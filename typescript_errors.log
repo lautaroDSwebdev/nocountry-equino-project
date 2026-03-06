@@ -1,0 +1,9 @@
+src/app/equino/page.tsx(10,14): error TS2741: Property 'title' is missing in type '{}' but required in type '{ title: string; }'.
+src/app/perfil/page.tsx(24,52): error TS2551: Property 'access_token' does not exist on type 'Tokens'. Did you mean 'accessToken'?
+src/app/perfil/page.tsx(29,80): error TS2551: Property 'access_token' does not exist on type 'Tokens'. Did you mean 'accessToken'?
+src/components/filter/ConditionsFilter.tsx(8,12): error TS2339: Property 'filters' does not exist on type 'ContextFilterType | undefined'.
+src/components/filter/ConditionsFilter.tsx(8,21): error TS2339: Property 'setFilters' does not exist on type 'ContextFilterType | undefined'.
+src/hooks/useLoginValidations.tsx(1,10): error TS2305: Module '"@/mock/mock"' has no exported member 'FormErrors'.
+src/hooks/useLoginValidations.tsx(1,22): error TS2305: Module '"@/mock/mock"' has no exported member 'FormValues'.
+src/hooks/useRegisterValidations.tsx(1,10): error TS2305: Module '"@/mock/mock"' has no exported member 'FormErrors'.
+src/hooks/useRegisterValidations.tsx(1,22): error TS2305: Module '"@/mock/mock"' has no exported member 'FormValues'.
