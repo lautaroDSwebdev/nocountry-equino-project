@@ -2,6 +2,7 @@
 
 import { MapPin, Phone, Mail, Clock, ArrowRight } from 'lucide-react';
 import  {useScrollReveal} from "@/hooks/useScrollReveal"
+import { equino_path } from '@/constants/equino.path';
 const LocationSection = () => {
   const sectionRef = useScrollReveal<HTMLElement>();
 
@@ -57,10 +58,10 @@ const LocationSection = () => {
             </div>
 
             {/* CTA Button */}
-            <button className="mt-8 inline-flex items-center justify-center gap-2 bg-[#C9A24D] text-white font-semibold py-4 px-8 rounded-xl hover:bg-[#B8913C] transition-all duration-300 hover:shadow-lg hover:shadow-[#C9A24D]/25 group w-full md:w-auto">
+            <a href={`${equino_path}/contacto`} className="mt-8 inline-flex items-center justify-center gap-2 bg-[#C9A24D] text-white font-semibold py-4 px-8 rounded-xl hover:bg-[#B8913C] transition-all duration-300 hover:shadow-lg hover:shadow-[#C9A24D]/25 group w-full md:w-auto">
               Contáctanos
               <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform duration-300" />
-            </button>
+            </a>
           </div>
 
           {/* Map */}

@@ -6,19 +6,8 @@ import { useState, useEffect, useRef } from 'react';
 import { Search, Menu, User, Settings, MessageSquare, Heart } from 'lucide-react';
 import { useChatStore } from '@/store/useChatStore';
 import { authStore } from '@/store/token-store';
+import { equino_path, navLinksLeft, navLinksRight } from '@/constants/equino.path';
 
-const path = "/equino"
-const navLinksLeft = [
-    { href: path + "/catalogo", label: "Catálogo" },
-    { href: path + "/novedades", label: "Novedades" },
-    { href: path + "/vender", label: "Vender" },
-];
-
-const navLinksRight = [
-    { href: path + "/quienes-somos", label: "Quiénes Somos" },
-    { href: path + "/ayuda", label: "Ayuda" },
-    { href: path + "/contacto", label: "Contacto" },
-];
 
 
 
@@ -163,7 +152,7 @@ export default function Header() {
                                             <span>Chat</span>
                                         </button>
                                         <Link
-                                            href="/equino/guardados"
+                                            href={`${equino_path}/guardados`}
                                             onClick={() => setIsProfileOpen(false)}
                                             className="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 hover:text-[#C9A24D] transition-colors"
                                         >

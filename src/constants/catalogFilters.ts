@@ -10,3 +10,5 @@ export const CATALOG_FILTERS = [
     { title: "Disciplinas", key: "disciplines", items: Object.keys(DISCIPLINE_TRANSLATIONS).map(k => DISCIPLINE_TRANSLATIONS[k]) },
     { title: "Ubicación", key: "locations", items: LOCATIONS },
 ];
+
+

@@ -5,6 +5,7 @@ import { endpoint_login } from "@/service/api-general";
 import { useRouter } from "next/navigation";
 import { authStore } from "@/store/token-store";
 import toast from "react-hot-toast";
+import { equino_path } from "@/constants/equino.path";
 
 // namesFormulariLogin: por acá llamamos al objeto para almacenar en memoria la info que ingresa del fomrulario
 // validateForm: por acá ingresamos la funcion con las condicionales para los mensajes de los inputs
@@ -55,7 +56,7 @@ export const useFormLogin = (namesFormulariLogin: namesFormulariLogin, validateF
             access_token: res.access_token,
             user: res.user
           });
-          router.push("/equino")
+          router.push(equino_path)
         } else if (req.status === 403) {
           console.log("hubo un fallo en la peticion", + req.status);
           toast.error("Fallo en el Inicio de Sesion, comprueba los datos")

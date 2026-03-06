@@ -1,4 +1,5 @@
 import HorseGrid from "@/components/landing/HorseGrid";
+import { equino_path } from "@/constants/equino.path";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 
@@ -47,7 +48,7 @@ export default function Novedades() {
                                 Llegá a miles de compradores interesados todos los días.
                             </p>
                             <Link
-                                href="/equino/vender"
+                                href={`${equino_path}/vender`}
                                 className="inline-flex items-center gap-2 text-[#C9A24D] font-semibold hover:text-[#1F140D] transition-colors"
                             >
                                 Empezar ahora

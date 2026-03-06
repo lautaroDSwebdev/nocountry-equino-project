@@ -51,26 +51,25 @@ export default function HorseGallery({ images, category }: HorseGalleryProps) {
                 <>
                     <button
                         onClick={prevImage}
-                        className="absolute left-2 top-1/2 -translate-y-1/2 z-30 p-2 text-white/70 hover:text-[#C9A24D] hover:scale-110 transition-all"
+                        className="absolute left-2 top-1/2 cursor-pointer -translate-y-1/2 z-30 p-2 text-white/70 hover:text-[#C9A24D] hover:scale-110 transition-all"
                         aria-label="Imagen anterior"
                     >
                         <ChevronLeft size={48} strokeWidth={1} />
                     </button>
                     <button
                         onClick={nextImage}
-                        className="absolute right-2 top-1/2 -translate-y-1/2 z-30 p-2 text-white/70 hover:text-[#C9A24D] hover:scale-110 transition-all"
+                        className="absolute right-2 top-1/2 cursor-pointer -translate-y-1/2 z-30 p-2 text-white/70 hover:text-[#C9A24D] hover:scale-110 transition-all"
                         aria-label="Siguiente imagen"
                     >
                         <ChevronRight size={48} strokeWidth={1} />
                     </button>
 
-                    {/* Dots / Indicators */}
                     <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-30 flex gap-3">
                         {images.map((_, index) => (
                             <button
                                 key={index}
                                 onClick={() => setCurrentIndex(index)}
-                                className={`w-3 h-3 rounded-full transition-all duration-300 border-2 border-white ${index === currentIndex
+                                className={`w-3 h-3 rounded-full transition-all duration-300 border-2 border-white cursor-pointer ${index === currentIndex
                                     ? 'bg-white scale-110'
                                     : 'bg-transparent hover:bg-white/50'
                                     }`}
