@@ -5,7 +5,6 @@ import { useScrollReveal } from "@/hooks/useScrollReveal"
 import { equino_path } from '@/constants/equino.path';
 const LocationSection = () => {
   const sectionRef = useScrollReveal<HTMLElement>();
-  console.log("un cambio");
   return (
     <section ref={sectionRef} className="scroll-reveal py-24 bg-[#F9F7F5]">
       <div className="max-w-7xl mx-auto px-4 md:px-8">
